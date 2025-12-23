@@ -1,6 +1,6 @@
 # Laravel Filament Starter Kit
 
-Modern, component-based Laravel starter kit with Filament admin panel, Alpine.js interactions, and a beautiful landing page system.
+    Modern, component-based Laravel starter kit with Filament admin panel, Alpine.js interactions, and a beautiful landing page system.
 
 ## 🚀 Features
 
@@ -10,6 +10,12 @@ Modern, component-based Laravel starter kit with Filament admin panel, Alpine.js
 - **Activity Logs** - Track all user actions
 - **Media Library** - Image and file management
 - **Shield Integration** - Advanced access control
+
+### CMS Features
+- **Blog Management** - Posts with categories and tags
+- **Page Management** - Dynamic page creation with SEO
+- **Menu Builder** - Nested menu system with multiple locations
+- **Content Organization** - Categories and tags for better organization
 
 ### Landing Page System
 - **Component-Based Architecture** - Reusable Blade components
@@ -35,7 +41,7 @@ Modern, component-based Laravel starter kit with Filament admin panel, Alpine.js
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/serkanceyhan/starter-kit.git>
 cd tamiratt
 ```
 
