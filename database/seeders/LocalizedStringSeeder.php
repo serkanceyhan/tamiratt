@@ -21,11 +21,23 @@ class LocalizedStringSeeder extends Seeder
             // Navigation - Menü
             'nav.home' => 'Ana Sayfa',
             'nav.services' => 'Hizmetler',
+            'nav.how_it_works' => 'Nasıl Çalışır?',
+            'nav.sustainability' => 'Sürdürülebilirlik',
             'nav.about' => 'Hakkımızda',
             'nav.contact' => 'İletişim',
             'nav.blog' => 'Blog',
             'nav.login' => 'Giriş Yap',
             'nav.logout' => 'Çıkış Yap',
+            
+            // Email - E-posta
+            'email.new_quote_request' => 'Yeni Teklif Talebi',
+            'email.company_name' => 'Şirket Adı',
+            'email.full_name' => 'Ad Soyad',
+            'email.email_address' => 'E-posta',
+            'email.service_type' => 'Hizmet Türü',
+            'email.message_details' => 'Mesaj / Detaylar',
+            'email.no_message' => 'Mesaj yok',
+            'email.footer_note' => 'Bu e-posta Tamirat.com üzerinden gönderilmiştir.',
             
             // Footer - Alt Bilgi
             'footer.company_description' => 'Ofis mobilyaları için sürdürülebilir, ekonomik ve profesyonel tamirat çözümleri.',
