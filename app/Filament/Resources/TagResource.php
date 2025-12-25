@@ -19,7 +19,13 @@ class TagResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
     
-    protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $navigationGroup = 'İçerik Yönetimi';
+    
+    protected static ?string $navigationLabel = 'Etiketler';
+    
+    protected static ?string $pluralLabel = 'Etiketler';
+    
+    protected static ?string $modelLabel = 'Etiket';
 
     public static function form(Form $form): Form
     {

@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('flux360')
             ->colors([
                 'primary' => Color::Amber,
             ])

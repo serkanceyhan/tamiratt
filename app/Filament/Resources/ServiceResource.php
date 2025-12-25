@@ -19,7 +19,13 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
     
-    protected static ?string $navigationGroup = 'SEO & Coverage';
+    protected static ?string $navigationGroup = 'SEO & Kapsama';
+    
+    protected static ?string $navigationLabel = 'Hizmetler';
+    
+    protected static ?string $pluralLabel = 'Hizmetler';
+    
+    protected static ?string $modelLabel = 'Hizmet';
 
     public static function form(Form $form): Form
     {
@@ -28,11 +34,13 @@ class ServiceResource extends Resource
                 Forms\Components\Section::make('Temel Bilgiler')
                     ->schema([
                         Forms\Components\TextInput::make('name')
+                            ->label('Ad')
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn ($state, callable $set) => $set('slug', \Illuminate\Support\Str::slug($state)))
                             ->maxLength(255),
                         Forms\Components\TextInput::make('slug')
+                            ->label('URL Slug')
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(255),
@@ -50,8 +58,9 @@ class ServiceResource extends Resource
                             ->placeholder('Ana hizmet seçin (opsiyonel)')
                             ->helperText('Boş bırakılırsa ana hizmet olur'),
                         Forms\Components\RichEditor::make('master_content')
+                            ->label('Ana İçerik')
                             ->required()
-                            ->helperText('Use {location} placeholder for dynamic location name')
+                            ->helperText('Dinamik konum adı için {location} yer tutucusunu kullanın')
                             ->columnSpanFull(),
                         Forms\Components\Select::make('icon')
                             ->label('Icon')
@@ -104,6 +113,7 @@ class ServiceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Hizmet Adı')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('parent.name')
@@ -118,11 +128,13 @@ class ServiceResource extends Resource
                     ->suffix(' adet')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('URL')
                     ->searchable()
                     ->copyable(),
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Active'),
+                    ->label('Aktif'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Oluşturulma')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -19,7 +19,13 @@ class MenuResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bars-3';
     
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationGroup = 'Ayarlar';
+    
+    protected static ?string $navigationLabel = 'Menüler';
+    
+    protected static ?string $pluralLabel = 'Menüler';
+    
+    protected static ?string $modelLabel = 'Menü';
 
     public static function form(Form $form): Form
     {

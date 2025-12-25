@@ -1,8 +1,8 @@
 <section class="py-20 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800" id="services">
     <div class="max-w-[1100px] mx-auto px-6">
         <div class="text-center mb-16">
-            <span class="text-primary font-semibold text-sm uppercase tracking-wider mb-2 block">Hizmetlerimiz</span>
-            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">Ofisiniz İçin Profesyonel Çözümler</h2>
+            <span class="text-primary font-semibold text-sm uppercase tracking-wider mb-2 block">{{ T('services.title') }}</span>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">{{ T('services.subtitle') }}</h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @php

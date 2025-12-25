@@ -19,9 +19,13 @@ class LocationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
     
-    protected static ?string $navigationGroup = 'SEO & Coverage';
+    protected static ?string $navigationGroup = 'SEO & Kapsama';
     
-    protected static ?string $navigationLabel = 'Locations';
+    protected static ?string $navigationLabel = 'Konumlar';
+    
+    protected static ?string $pluralLabel = 'Konumlar';
+    
+    protected static ?string $modelLabel = 'Konum';
 
     public static function getEloquentQuery(): Builder
     {

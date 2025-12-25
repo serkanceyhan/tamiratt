@@ -17,9 +17,15 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
+    protected static ?string $navigationIcon = 'heroicon-o-document';
     
-    protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $navigationGroup = 'İçerik Yönetimi';
+    
+    protected static ?string $navigationLabel = 'Sayfalar';
+    
+    protected static ?string $pluralLabel = 'Sayfalar';
+    
+    protected static ?string $modelLabel = 'Sayfa';
 
     public static function form(Form $form): Form
     {

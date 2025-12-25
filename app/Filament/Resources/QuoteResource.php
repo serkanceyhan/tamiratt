@@ -17,7 +17,15 @@ class QuoteResource extends Resource
 {
     protected static ?string $model = Quote::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    
+    protected static ?string $navigationGroup = 'Ayarlar';
+    
+    protected static ?string $navigationLabel = 'Teklif Talepleri';
+    
+    protected static ?string $pluralLabel = 'Teklif Talepleri';
+    
+    protected static ?string $modelLabel = 'Teklif Talebi';
 
     /**
      * Data scoping: Service Providers only see their own quotes
