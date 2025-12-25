@@ -1,7 +1,7 @@
 <header class="sticky top-0 z-50 w-full bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md border-b border-[#e7ebf3] dark:border-[#2a303c]">
     <div class="max-w-[1280px] mx-auto px-6 py-4 flex items-center justify-between">
         <div class="flex items-center gap-2 group cursor-pointer">
-            <img alt="Tamirat Logo" class="h-10 w-auto object-contain" src="https://www.tamiratt.com/assets/images/logo.png"/>
+            <img alt="Flux360 Logo" class="h-10 w-auto object-contain" src="https://www.tamiratt.com/assets/images/logo.png"/>
         </div>
         <nav class="hidden md:flex items-center gap-8">
             <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#services">Hizmetler</a>

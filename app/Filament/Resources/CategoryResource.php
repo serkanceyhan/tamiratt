@@ -31,6 +31,13 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('parent_id')
+                    ->label('Ana Kategori')
+                    ->relationship('parent', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->placeholder('Ana kategori seçin (opsiyonel)')
+                    ->helperText('Boş bırakılırsa ana kategori olur'),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
             ]);
@@ -42,6 +49,17 @@ class CategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('parent.name')
+                    ->label('Ana Kategori')
+                    ->sortable()
+                    ->searchable()
+                    ->placeholder('—')
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('children_count')
+                    ->label('Alt Kategoriler')
+                    ->counts('children')
+                    ->suffix(' adet')
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

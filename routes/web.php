@@ -22,4 +22,9 @@ Route::get('/sozlesme/{slug}', [App\Http\Controllers\ContentController::class, '
 
 Route::post('/quote', [App\Http\Controllers\QuoteController::class, 'store'])->name('quote.store');
 
+// SEO Pages - Single route for all formats
+Route::get('/{slug}', [App\Http\Controllers\SeoPageController::class, 'show'])
+    ->where('slug', '[a-z0-9-]+')
+    ->name('seo.page');
+
 require __DIR__.'/auth.php';

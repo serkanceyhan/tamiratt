@@ -52,7 +52,7 @@
                         company_name: '',
                         name: '',
                         email: '',
-                        service_type: 'Sandalye Döşeme & Yenileme',
+                        service_type: '{{ \App\Models\Service::where("is_active", true)->orderBy("name")->first()->name ?? "Hizmet Seçiniz" }}',
                         message: ''
                     },
                     submitForm() {
@@ -78,7 +78,7 @@
                         .then(response => {
                             this.isSuccess = true;
                             this.message = response.data.message;
-                            this.formData = { company_name: '', name: '', email: '', service_type: 'Sandalye Döşeme & Yenileme', message: '' };
+                            this.formData = { company_name: '', name: '', email: '', service_type: '{{ \App\Models\Service::where("is_active", true)->orderBy("name")->first()->name ?? "" }}', message: '' };
                             this.file = null;
                             setTimeout(() => {
                                 quoteModalOpen = false;
@@ -134,10 +134,9 @@
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Hizmet Türü</label>
                     <select x-model="formData.service_type" class="w-full px-4 py-3 bg-gray-50 dark:bg-background-dark border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
-                        <option>Sandalye Döşeme & Yenileme</option>
-                        <option>Masa Cilalama & Onarım</option>
-                        <option>Mekanizma Tamiri</option>
-                        <option>Komple Ofis Yenileme</option>
+                        @foreach(\App\Models\Service::where('is_active', true)->orderBy('name')->get() as $service)
+                            <option value="{{ $service->name }}">{{ $service->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>

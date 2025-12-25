@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'slug', 'description'];
+    protected $fillable = ['name', 'slug', 'description', 'parent_id'];
 
     protected static function boot()
     {
@@ -24,5 +24,20 @@ class Category extends Model
     public function posts(): BelongsToMany
     {
         return $this->belongsToMany(Post::class);
+    }
+    
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+    
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+    
+    public function scopeParents($query)
+    {
+        return $query->whereNull('parent_id');
     }
 }
