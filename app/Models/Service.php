@@ -27,9 +27,7 @@ class Service extends Model
 
     public function locations(): BelongsToMany
     {
-        return $this->belongsToMany(Location::class, 'seo_pages')
-                    ->using(SeoPage::class)
-                    ->withPivot(['slug', 'is_active', 'custom_content', 'custom_hero_title'])
+        return $this->belongsToMany(Location::class, 'location_service')
                     ->withTimestamps();
     }
     

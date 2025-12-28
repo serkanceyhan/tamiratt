@@ -111,11 +111,25 @@ class ServiceResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function ($query) {
+                // Ana hizmetleri ve hemen altlarındaki alt hizmetleri sırala
+                return $query
+                    ->orderByRaw('COALESCE(parent_id, id)')
+                    ->orderBy('parent_id')
+                    ->orderBy('name');
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Hizmet Adı')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(function ($state, $record) {
+                        if (!$record) return $state;
+                        $indent = $record->parent_id ? '　　↳ ' : '';
+                        return $indent . $state;
+                    })
+                    ->weight(fn($record) => ($record && $record->parent_id) ? 'normal' : 'bold')
+                    ->color(fn($record) => ($record && $record->parent_id) ? 'gray' : 'primary'),
                 Tables\Columns\TextColumn::make('parent.name')
                     ->label('Ana Hizmet')
                     ->sortable()
@@ -126,11 +140,13 @@ class ServiceResource extends Resource
                     ->label('Alt Hizmetler')
                     ->counts('children')
                     ->suffix(' adet')
-                    ->toggleable(),
+                    ->toggleable()
+                    ->visible(fn($record) => $record && !$record->parent_id),
                 Tables\Columns\TextColumn::make('slug')
                     ->label('URL')
                     ->searchable()
-                    ->copyable(),
+                    ->copyable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif'),
                 Tables\Columns\TextColumn::make('created_at')
