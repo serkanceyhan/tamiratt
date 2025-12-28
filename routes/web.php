@@ -22,9 +22,15 @@ Route::get('/sozlesme/{slug}', [App\Http\Controllers\ContentController::class, '
 
 Route::post('/quote', [App\Http\Controllers\QuoteController::class, 'store'])->name('quote.store');
 
+// Sitemap routes
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-services.xml', [App\Http\Controllers\SitemapController::class, 'services'])->name('sitemap.services');
+Route::get('/sitemap-static.xml', [App\Http\Controllers\SitemapController::class, 'static'])->name('sitemap.static');
+
 // SEO Pages - Single route for all formats
-Route::get('/{slug}', [App\Http\Controllers\SeoPageController::class, 'show'])
+Route::get('/{slug}', [App\Http\Controllers\SeoController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('seo.page');
+
 
 require __DIR__.'/auth.php';

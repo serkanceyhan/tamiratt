@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Service extends Model
 {
-    protected $fillable = ['name', 'slug', 'short_description', 'master_content', 'is_active', 'parent_id', 'show_on_homepage', 'icon'];
+    protected $fillable = ['name', 'slug', 'short_description', 'master_content', 'master_hero_title', 'is_active', 'parent_id', 'show_on_homepage', 'icon'];
 
     protected $casts = [
         'is_active' => 'boolean',

@@ -57,6 +57,11 @@ class ServiceResource extends Resource
                             ->preload()
                             ->placeholder('Ana hizmet seçin (opsiyonel)')
                             ->helperText('Boş bırakılırsa ana hizmet olur'),
+                        Forms\Components\TextInput::make('master_hero_title')
+                            ->label('Hero Başlığı')
+                            ->maxLength(255)
+                            ->helperText('SEO sayfaları için dinamik başlık. {location} yer tutucusunu kullanın')
+                            ->columnSpanFull(),
                         Forms\Components\RichEditor::make('master_content')
                             ->label('Ana İçerik')
                             ->required()
