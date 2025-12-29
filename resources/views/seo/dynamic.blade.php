@@ -118,7 +118,7 @@
 
                         {{-- Main Title --}}
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
-                            {{ $location->name }}'de <span style="color: #2463eb;">{{ $service->name }}</span>
+                            {{ $location->name }} <span style="color: #2463eb;">{{ $service->name }}</span>
                         </h1>
 
                         {{-- Description --}}
@@ -143,8 +143,8 @@
                                 <span>500+ Kurumsal Referans</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                <span class="material-symbols-outlined text-primary text-xl">sentiment_satisfied</span>
-                                <span>5000+ Mutlu Müşteri</span>
+                                <span class="material-symbols-outlined text-primary text-xl">build</span>
+                                <span>5000+ Tamirat</span>
                             </div>
                         </div>
                     </div>
@@ -277,15 +277,28 @@
         </section>
 
         {{-- Trust Logos --}}
-        <section class="py-16 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
-            <div class="max-w-[1280px] mx-auto px-6 text-center">
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-10">{{ $location->name }} Bölgesinde Bizi Tercih Eden Kurumlar</h3>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-                    @for($i = 1; $i <= 5; $i++)
-                        <div class="px-8 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                            <span class="text-sm font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Kurum {{ $i }}</span>
-                        </div>
-                    @endfor
+        <section class="py-12 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800">
+            <div class="max-w-[1280px] mx-auto px-6">
+                <h3 class="text-center text-sm font-semibold text-gray-500 dark:text-gray-400 mb-8 uppercase tracking-wider">Bize Güvenen Kurumlar</h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">Smella Kozmetik</span>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">Gleam Oyun Yazılımları</span>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">AFRAN Elektronik</span>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">MODE MEDICAL Dental</span>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">SLIMSTOCK</span>
+                    </div>
+                    <div class="flex items-center justify-center p-4 bg-gray-50 dark:bg-surface-dark rounded-lg">
+                        <span class="text-gray-700 dark:text-gray-300 font-bold text-sm text-center">NEON APPS</span>
+                    </div>
                 </div>
             </div>
         </section>

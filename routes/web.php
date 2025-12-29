@@ -2,8 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 
+// Services page
+Route::get('/hizmetler', function () {
+    return view('pages.services');
+})->name('services');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
