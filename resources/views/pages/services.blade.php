@@ -72,7 +72,7 @@
                         <div class="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 p-5 hover:shadow-lg transition-shadow">
                             <h3 class="font-bold text-gray-900 dark:text-white mb-3">{{ $city->name }}</h3>
                             <div class="space-y-2">
-                                @foreach($city->children()->where('is_active', true)->limit(5)->get() as $district)
+                                @foreach($city->children()->where('is_active', true)->orderBy('name')->get() as $district)
                                     @php
                                         // Get first active service for this district
                                         $firstService = $services->first();
@@ -82,9 +82,6 @@
                                         {{ $district->name }}
                                     </a>
                                 @endforeach
-                                @if($city->children()->where('is_active', true)->count() > 5)
-                                    <span class="block text-xs text-gray-400 mt-2">+{{ $city->children()->where('is_active', true)->count() - 5 }} ilçe daha</span>
-                                @endif
                             </div>
                         </div>
                     @endforeach
