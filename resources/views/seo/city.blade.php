@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ $city->name }} - {{ $service->name }} | Flux360</title>
+    <title>{{ $city->name }} - {{ $service->name }} | ta'miratt</title>
     <meta name="description" content="{{ $city->name }} ve tüm ilçelerinde profesyonel {{ $service->name }} hizmeti">
     
     <!-- Fonts -->

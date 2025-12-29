@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div class="col-span-1 md:col-span-1">
                 <div class="mb-6">
-                    <img alt="Flux360 Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL0Ux4Xs6k2OJMKMUgBkKHQEuyjl2LOpicn9nENU_zTyXiVeTv75FwZHISFozvtmyaGsmFQ62mLwjwieHs0oMR3Trk3_GdhLkHmcfPIIs6dTuZdy2piKAi00g2r8oHkF5pNiDwZfbxDRdoOJi-D6MOmq9mvZB9wT4z_1QyS0Dy66uBW2Gpd0_0m-Lb4KGqNqLGuPDquAYmOmAE7Ez6wCaRumVq8Vd7eU-ahoJl-3Nu9zdlOzNa21wucXYxP0HsbveIYfTmr7zz464"/>
+                    <img alt="ta'miratt Logo" class="h-8 w-auto object-contain" src="https://www.tamiratt.com/assets/images/logo.png"/>
                 </div>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
                     {{ T('footer.company_description') }}
