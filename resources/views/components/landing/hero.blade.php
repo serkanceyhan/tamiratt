@@ -29,35 +29,35 @@
                         <span>Süreci İzle</span>
                     </button>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-800 mt-4">
-                    <div class="flex items-center gap-3 justify-center lg:justify-start">
-                        <div class="p-2 rounded-full bg-secondary/10 text-secondary">
-                            <span class="material-symbols-outlined">forest</span>
-                        </div>
-                        <div class="flex flex-col text-left">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white">Karbon Ayak İzi</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">Azaltımı Garantili</span>
-                        </div>
+            <div class="flex flex-wrap justify-center gap-6 mt-12">
+                <div class="flex items-center gap-3 px-5 py-3 bg-white dark:bg-surface-dark rounded-full shadow-lg">
+                    <div class="flex-shrink-0 w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-600 dark:text-green-400 text-xl">eco</span>
                     </div>
-                    <div class="flex items-center gap-3 justify-center lg:justify-start">
-                        <div class="p-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                            <span class="material-symbols-outlined">local_shipping</span>
-                        </div>
-                        <div class="flex flex-col text-left">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white">Ücretsiz Nakliye</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">Tüm Türkiye'de</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 justify-center lg:justify-start">
-                        <div class="p-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
-                            <span class="material-symbols-outlined">verified_user</span>
-                        </div>
-                        <div class="flex flex-col text-left">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white">2 Yıl Garanti</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">İşçilik ve Malzeme</span>
-                        </div>
+                    <div class="text-left">
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">Karbon Ayak İzi</span>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">Azaltım Garantili</p>
                     </div>
                 </div>
+                <div class="flex items-center gap-3 px-5 py-3 bg-white dark:bg-surface-dark rounded-full shadow-lg">
+                    <div class="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-xl">local_shipping</span>
+                    </div>
+                    <div class="text-left">
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">Ücretsiz Nakliye</span>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">Tüm Türkiye'de</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 px-5 py-3 bg-white dark:bg-surface-dark rounded-full shadow-lg">
+                    <div class="flex-shrink-0 w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-purple-600 dark:text-purple-400 text-xl">verified_user</span>
+                    </div>
+                    <div class="text-left">
+                        <span class="text-sm font-bold text-gray-900 dark:text-white">2 Yıl Garanti</span>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">İşçilik ve Malzeme</p>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="flex-1 w-full relative group perspective-1000">
                 <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 transform rotate-1 transition-transform duration-500 hover:rotate-0">
