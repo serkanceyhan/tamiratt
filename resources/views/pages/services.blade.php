@@ -63,29 +63,31 @@
             </div>
         </section>
 
-        {{-- Cities Grid --}}
+        {{-- Cities & Districts Grid --}}
         <section class="py-16 bg-gray-50 dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800">
             <div class="max-w-[1280px] mx-auto px-6">
-                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Hizmet Verdiğimiz Şehirler</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    @foreach($cities as $city)
-                        <div class="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700 p-5 hover:shadow-lg transition-shadow">
-                            <h3 class="font-bold text-gray-900 dark:text-white mb-3">{{ $city->name }}</h3>
-                            <div class="space-y-2">
-                                @foreach($city->children()->where('is_active', true)->orderBy('name')->get() as $district)
-                                    @php
-                                        // Get first active service for this district
-                                        $firstService = $services->first();
-                                        $districtUrl = $firstService ? route('seo.page', ['slug' => $district->slug . '-' . $firstService->slug]) : '#';
-                                    @endphp
-                                    <a href="{{ $districtUrl }}" class="block text-sm text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
-                                        {{ $district->name }}
-                                    </a>
-                                @endforeach
-                            </div>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Hizmet Verdiğimiz Bölgeler</h2>
+                
+                @foreach($cities as $city)
+                    <div class="mb-10">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">location_city</span>
+                            {{ $city->name }}
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                            @foreach($city->children()->where('is_active', true)->orderBy('name')->get() as $district)
+                                @php
+                                    $firstService = $services->first();
+                                    $districtUrl = $firstService ? route('seo.page', ['slug' => $district->slug . '-' . $firstService->slug]) : '#';
+                                @endphp
+                                <a href="{{ $districtUrl }}" 
+                                   class="group flex items-center justify-center gap-1 p-2 bg-white dark:bg-background-dark rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 transition-all border border-gray-200 dark:border-gray-700 hover:border-primary hover:shadow-md">
+                                    <span class="text-xs font-medium text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors text-center">{{ $district->name }}</span>
+                                </a>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
         </section>
     </main>
