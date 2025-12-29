@@ -18,10 +18,12 @@
             "@type": "LocalBusiness",
             "name": "Tamiratt - {{ $service->name }}",
             "description": "{{ $metaDescription }}",
+            @if($location)
             "areaServed": {
                 "@type": "City",
                 "name": "{{ $location->name }}"
             },
+            @endif
             "serviceType": "{{ $service->name }}"
         }
         </script>
