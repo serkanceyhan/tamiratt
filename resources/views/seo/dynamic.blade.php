@@ -113,17 +113,17 @@
                         {{-- Orange Badge --}}
                         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white shadow-md mb-6" style="background-color: #f97316;">
                             <span class="material-symbols-outlined text-sm">local_shipping</span>
-                            <span class="text-xs font-bold uppercase tracking-wide">{{ $location->name }} Bölgesine Ücretsiz Teslimat</span>
+                            <span class="text-xs font-bold uppercase tracking-wide">{{ $location ? $location->name . ' Bölgesine' : 'Tüm Türkiye\'ye' }} Ücretsiz Teslimat</span>
                         </div>
 
                         {{-- Main Title --}}
                         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
-                            {{ $location->name }} <span style="color: #2463eb;">{{ $service->name }}</span>
+                            {{ $location ? $location->name : '' }} <span style="color: #2463eb;">{{ $service->name }}</span>
                         </h1>
 
                         {{-- Description --}}
                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                            Ofis mobilyalarınızı yenileyerek bütçenizden <span class="text-orange-600 font-bold">%60 tasarruf edin</span>. {{ $location->name }} bölgesindeki ofisinizden ücretsiz alıyor, yenileyip teslim ediyoruz.
+                            Ofis mobilyalarınızı yenileyerek bütçenizden <span class="text-orange-600 font-bold">%60 tasarruf edin</span>. {{ $location ? $location->name . ' bölgesindeki' : '' }} Ofisinizden ücretsiz alıyor, yenileyip teslim ediyoruz.
                         </p>
 
                         {{-- CTA Button --}}
@@ -178,7 +178,7 @@
                             <div class="flex items-start gap-4">
                                 <span class="material-symbols-outlined text-blue-600 text-3xl">business_center</span>
                                 <div>
-                                    <h4 class="font-bold text-blue-900 dark:text-white mb-1">{{ $location->name }} Bölgesi Kurumsal Referanslarımız</h4>
+                                    <h4 class="font-bold text-blue-900 dark:text-white mb-1">{{ $location ? $location->name . ' Bölgesi' : '' }} Kurumsal Referanslarımız</h4>
                                     <p class="text-sm text-blue-800 dark:text-blue-200">Bölgenizdeki banka genel müdürlükleri, hukuk büroları ve teknoloji şirketlerinin mobilyalarını biz yeniliyoruz.</p>
                                 </div>
                             </div>
@@ -314,16 +314,16 @@
                         <div class="flex-1 text-center lg:text-left">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-800 border border-blue-700 w-fit mb-6">
                                 <span class="material-symbols-outlined text-white text-sm">location_on</span>
-                                <span class="text-xs font-semibold text-white uppercase tracking-wide">{{ $location->name }} ve Çevresi</span>
+                                <span class="text-xs font-semibold text-white uppercase tracking-wide">{{ $location ? $location->name . ' ve Çevresi' : 'Tüm Türkiye' }}</span>
                             </div>
-                            <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">{{ $location->name }} Bölgesi Mobil Ekiplerimiz Hizmetinizde</h2>
+                            <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">{{ $location ? $location->name . ' Bölgesi' : '' }} Mobil Ekiplerimiz Hizmetinizde</h2>
                             <p class="text-blue-100 text-lg mb-8 leading-relaxed">
-                                Bölgedeki kurumsal bakım anlaşmalarımız sayesinde, {{ $location->name }}'de her gün mobil ekibimiz bulunmaktadır. Bu sayede en hızlı servis ve teslimat süresini garanti ediyoruz.
+                                {{ $location ? 'Bölgedeki kurumsal bakım anlaşmalarımız sayesinde, ' . $location->name . '\'de her gün mobil ekibimiz bulunmaktadır.' : 'Türkiye genelinde mobil ekiplerimiz hizmetinizdedir.' }} Bu sayede en hızlı servis ve teslimat süresini garanti ediyoruz.
                             </p>
                             <ul class="space-y-4 mb-8 text-white">
                                 <li class="flex items-center gap-3">
                                     <span class="material-symbols-outlined text-green-400">check_circle</span>
-                                    <span>{{ $location->name }}{{ $locationType === 'district' && $location->parent ? ', '.$location->parent->name : '' }} hattında günlük servis</span>
+                                    <span>{{ $location ? $location->name . ($locationType === 'district' && $location->parent ? ', '.$location->parent->name : '') . ' hattında' : 'Türkiye genelinde' }} günlük servis</span>
                                 </li>
                                 <li class="flex items-center gap-3">
                                     <span class="material-symbols-outlined text-green-400">check_circle</span>
@@ -348,7 +348,7 @@
                                             <span class="material-symbols-outlined">check</span>
                                         </div>
                                         <div class="text-white">
-                                            <p class="font-bold text-sm">{{ $location->name }} Operasyon Merkezi</p>
+                                            <p class="font-bold text-sm">{{ $location ? $location->name . ' Operasyon Merkezi' : 'Merkez Operasyon' }}</p>
                                             <p class="text-xs text-blue-100">Aktif - 3 Ekip Sahada</p>
                                         </div>
                                     </div>
@@ -372,10 +372,10 @@
                     <div class="bg-white dark:bg-background-dark rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
                         <h3 class="flex items-center gap-3 font-bold text-lg text-gray-900 dark:text-white mb-3">
                             <span class="material-symbols-outlined text-primary">local_shipping</span>
-                            {{ $location->name }} bölgesinden alım için nakliye ücreti ödüyor muyum?
+                            {{ $location ? $location->name . ' bölgesinden' : '' }} Alım için nakliye ücreti ödüyor muyum?
                         </h3>
                         <p class="text-gray-600 dark:text-gray-400 leading-relaxed pl-9">
-                            Hayır. {{ $location->name }} ve çevresindeki tüm ofisler için nakliye hizmetimiz tamamen <strong>ücretsizdir</strong>. Kendi araçlarımız ve personelimiz ile mobilyalarınızı katınızdan alıp, işlemleri bittikten sonra tekrar yerine teslim ediyoruz.
+                            Hayır. {{ $location ? $location->name . ' ve çevresindeki' : 'Türkiye genelindeki' }} tüm ofisler için nakliye hizmetimiz tamamen <strong>ücretsizdir</strong>. Kendi araçlarımız ve personelimiz ile mobilyalarınızı katınızdan alıp, işlemleri bittikten sonra tekrar yerine teslim ediyoruz.
                         </p>
                     </div>
 
