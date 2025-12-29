@@ -124,7 +124,7 @@ class SeoController extends Controller
             'heroTitle' => $heroTitle,
             'h1' => $heroTitle,
             'breadcrumb' => $breadcrumb,
-            'metaTitle' => "{$heroTitle} | Tamiratt",
+            'metaTitle' => "{$location->name}'de {$service->name}",
             'metaDescription' => $metaDescription,
             'canonicalUrl' => url()->current(),
         ];
