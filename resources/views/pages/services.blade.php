@@ -74,7 +74,7 @@
                             <span class="material-symbols-outlined text-primary">location_city</span>
                             {{ $city->name }}
                         </h3>
-                        <div class="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2">
                             @foreach($city->children()->where('is_active', true)->orderBy('name')->get() as $district)
                                 @php
                                     $firstService = $services->first();
