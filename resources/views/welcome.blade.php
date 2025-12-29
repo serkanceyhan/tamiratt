@@ -2,6 +2,7 @@
     <x-landing.header />
     <main class="flex-grow">
         <x-landing.hero />
+        <x-landing.trust-stats />
         <x-landing.services />
         <x-landing.process />
         <x-landing.cta />
