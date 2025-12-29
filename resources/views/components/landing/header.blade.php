@@ -4,7 +4,7 @@
             <img alt="ta'miratt Logo" class="h-10 w-auto object-contain" src="https://www.tamiratt.com/assets/images/logo.png"/>
         </a>
         <nav class="hidden md:flex items-center gap-8">
-            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#services">{{ T('nav.services') }}</a>
+            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="{{ route('services') }}">{{ T('nav.services') }}</a>
             <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#process">{{ T('nav.how_it_works') }}</a>
             <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#sustainability">{{ T('nav.sustainability') }}</a>
         </nav>

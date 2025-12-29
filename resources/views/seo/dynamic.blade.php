@@ -115,7 +115,7 @@
                         {{-- Orange Badge --}}
                         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white shadow-md mb-6" style="background-color: #f97316;">
                             <span class="material-symbols-outlined text-sm">local_shipping</span>
-                            <span class="text-xs font-bold uppercase tracking-wide">{{ $location ? $location->name . ' Bölgesine' : 'Tüm Türkiye\'ye' }} Ücretsiz Teslimat</span>
+                            <span class="text-xs font-bold uppercase tracking-wide">{{ $location ? $location->name . ' Bölgesine' : 'Hizmet Verilen Bölgelere' }} Ücretsiz Teslimat</span>
                         </div>
 
                         {{-- Main Title --}}
@@ -316,7 +316,7 @@
                         <div class="flex-1 text-center lg:text-left">
                             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-800 border border-blue-700 w-fit mb-6">
                                 <span class="material-symbols-outlined text-white text-sm">location_on</span>
-                                <span class="text-xs font-semibold text-white uppercase tracking-wide">{{ $location ? $location->name . ' ve Çevresi' : 'Tüm Türkiye' }}</span>
+                                <span class="text-xs font-semibold text-white uppercase tracking-wide">{{ $location ? $location->name . ' ve Çevresi' : 'Hizmet Verilen Bölgeler' }}</span>
                             </div>
                             <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">{{ $location ? $location->name . ' Bölgesi' : '' }} Mobil Ekiplerimiz Hizmetinizde</h2>
                             <p class="text-blue-100 text-lg mb-8 leading-relaxed">
