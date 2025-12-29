@@ -52,7 +52,7 @@ class TurkeySeeder extends Seeder
                     
                     Location::create([
                         'name' => $districtName,
-                        'slug' => Str::slug($city->slug . '-' . $districtName),
+                        'slug' => Str::slug($districtName),
                         'type' => 'district',
                         'parent_id' => $city->id,
                         'is_active' => $isActive, // İl ile aynı durum
