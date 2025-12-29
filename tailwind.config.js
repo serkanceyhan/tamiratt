@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import containerQueries from '@tailwindcss/container-queries';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -9,7 +10,10 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        containerQueries,
+    ],
     darkMode: "class",
     theme: {
         extend: {

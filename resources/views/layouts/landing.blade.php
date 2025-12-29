@@ -15,47 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#2463eb",
-                        "secondary": "#16A34A",
-                        "background-light": "#ffffff",
-                        "background-dark": "#111621",
-                        "surface-light": "#f8f9fc",
-                        "surface-dark": "#1e2430",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "body": ["Inter", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.5rem",
-                        "lg": "0.75rem",
-                        "xl": "1rem",
-                        "2xl": "1.5rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        [x-cloak] { display: none !important; }
-        html { scroll-behavior: smooth; }
-    </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark text-[#0e121b] dark:text-white font-body" x-data="{ quoteModalOpen: false }">
     <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
         {{ $slot }}

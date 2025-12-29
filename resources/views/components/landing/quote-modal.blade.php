@@ -42,58 +42,7 @@
             </div>
             
             <form 
-                x-data="{ 
-                    loading: false, 
-                    message: '', 
-                    isSuccess: false,
-                    isDragging: false,
-                    file: null,
-                    formData: {
-                        company_name: '',
-                        name: '',
-                        email: '',
-                        service_type: '{{ \App\Models\Service::where("is_active", true)->orderBy("name")->first()->name ?? "Hizmet Seçiniz" }}',
-                        message: ''
-                    },
-                    submitForm() {
-                        this.loading = true;
-                        this.message = '';
-                        this.isSuccess = false;
-
-                        const data = new FormData();
-                        data.append('company_name', this.formData.company_name);
-                        data.append('name', this.formData.name);
-                        data.append('email', this.formData.email);
-                        data.append('service_type', this.formData.service_type);
-                        data.append('message', this.formData.message);
-                        if (this.file) {
-                            data.append('file', this.file);
-                        }
-
-                        axios.post('/quote', data, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        })
-                        .then(response => {
-                            this.isSuccess = true;
-                            this.message = response.data.message;
-                            this.formData = { company_name: '', name: '', email: '', service_type: '{{ \App\Models\Service::where("is_active", true)->orderBy("name")->first()->name ?? "" }}', message: '' };
-                            this.file = null;
-                            setTimeout(() => {
-                                quoteModalOpen = false;
-                                this.message = ''; // Reset message so it doesn't show next time immediately
-                            }, 3000);
-                        })
-                        .catch(error => {
-                            this.isSuccess = false;
-                            this.message = error.response?.data?.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
-                        })
-                        .finally(() => {
-                            this.loading = false;
-                        });
-                    }
-                }"
+                x-data="quoteForm('{{ \App\Models\Service::where('is_active', true)->orderBy('name')->first()->name ?? 'Hizmet Seçiniz' }}')"
                 @submit.prevent="submitForm()" 
                 class="space-y-4"
             >
