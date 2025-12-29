@@ -2,73 +2,14 @@
 @php
     $whatsappNumber = \App\Models\Setting::get('whatsapp', '905XXXXXXXXX');
     $whatsappAgentName = \App\Models\Setting::get('whatsapp_agent_name', 'Sevda');
-    $whatsappMessage = \App\Models\Setting::get('whatsapp_message', 'Merhaba 👋 Ben, Müşteri Danışmanınız ' . $whatsappAgentName . '.\n\nSize nasıl yardımcı olabilirim?');
+    $whatsappMessage = 'Merhaba, web sitenizden ulaşıyorum.';
 @endphp
 
-<div x-data="{ 
-    open: false,
-    whatsappNumber: '{{ $whatsappNumber }}',
-    agentName: '{{ $whatsappAgentName }}',
-    defaultMessage: '{{ $whatsappMessage }}'
-}" class="fixed bottom-6 right-6 z-50">
-    
-    {{-- Chat Popup --}}
-    <div x-show="open" 
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 translate-y-4"
-         x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 translate-y-4"
-         @click.away="open = false"
-         class="absolute bottom-20 right-0 w-80 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden mb-2"
-         style="display: none;">
-        
-        {{-- Header --}}
-        <div class="bg-[#075E54] text-white p-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <img :src="`https://ui-avatars.com/api/?name=${encodeURIComponent(agentName)}&background=25D366&color=fff&size=48`" 
-                         :alt="agentName" 
-                         class="w-12 h-12 rounded-full border-2 border-white">
-                    <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-[#075E54]"></div>
-                </div>
-                <div>
-                    <p class="font-bold text-sm" x-text="agentName"></p>
-                    <p class="text-xs text-green-200">Çevrimiçi</p>
-                </div>
-            </div>
-            <button @click="open = false" class="text-white hover:text-gray-200 transition-colors">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-
-        {{-- Message --}}
-        <div class="p-4 bg-[#E5DDD5] dark:bg-gray-700 min-h-[180px]">
-            <div class="flex items-start gap-2">
-                <div class="flex-1">
-                    <div class="bg-white dark:bg-gray-600 rounded-lg rounded-tl-none p-3 shadow-sm">
-                        <p class="text-sm text-gray-800 dark:text-gray-100 whitespace-pre-line" x-text="defaultMessage"></p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">12:52</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Action Button --}}
-        <div class="p-4 bg-white dark:bg-gray-800">
-            <a :href="`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Merhaba, web sitenizden ulaşıyorum.')}`"
-               target="_blank"
-               class="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20BA5A] text-white font-bold py-3 px-6 rounded-full transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                <span class="material-symbols-outlined">chat</span>
-                <span>Mesaj Gönder</span>
-            </a>
-        </div>
-    </div>
-
-    {{-- Floating Button --}}
-    <button @click="open = !open"
-            class="relative w-14 h-14 bg-white hover:bg-gray-50 rounded-full shadow-lg transition-all transform hover:scale-110 flex items-center justify-center group">
+<div class="fixed bottom-6 right-6 z-50">
+    {{-- Direct WhatsApp Link Button --}}
+    <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode($whatsappMessage) }}"
+       target="_blank"
+       class="relative w-14 h-14 bg-white hover:bg-gray-50 rounded-full shadow-lg transition-all transform hover:scale-110 flex items-center justify-center group">
         
         {{-- WhatsApp Icon (SVG) --}}
         <svg class="w-7 h-7 relative z-10" fill="#25D366" viewBox="0 0 24 24">
@@ -79,5 +20,5 @@
         <div class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center border-2 border-white">
             <span class="text-xs font-bold text-white">1</span>
         </div>
-    </button>
+    </a>
 </div>
