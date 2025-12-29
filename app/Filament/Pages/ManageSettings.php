@@ -56,7 +56,18 @@ class ManageSettings extends Page
                             ->email(),
                         TextInput::make('whatsapp')
                             ->label('WhatsApp Numarası')
-                            ->tel(),
+                            ->tel()
+                            ->placeholder('905XXXXXXXXX')
+                            ->helperText('Ülke kodu ile birlikte, boşluksuz'),
+                        TextInput::make('whatsapp_agent_name')
+                            ->label('WhatsApp Danışman Adı')
+                            ->default('Sevda')
+                            ->helperText('Chat widget\'ta görünecek danışman adı'),
+                        Textarea::make('whatsapp_message')
+                            ->label('WhatsApp Hoş Geldin Mesajı')
+                            ->rows(3)
+                            ->default('Merhaba 👋 Ben, Müşteri Danışmanınız Sevda.\n\nSize nasıl yardımcı olabilirim?')
+                            ->helperText('Chat widget\'ta görünecek ilk mesaj'),
                         Textarea::make('address')
                             ->label('Adres')
                             ->rows(2),
@@ -100,7 +111,7 @@ class ManageSettings extends Page
     {
         if (str_starts_with($key, 'meta_')) {
             return 'seo';
-        } elseif (in_array($key, ['phone', 'email', 'whatsapp', 'address'])) {
+        } elseif (in_array($key, ['phone', 'email', 'whatsapp', 'whatsapp_agent_name', 'whatsapp_message', 'address'])) {
             return 'contact';
         }
         return 'general';

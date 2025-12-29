@@ -1,6 +1,6 @@
 {{-- WhatsApp Chat Widget --}}
 @php
-    $whatsappNumber = \App\Models\Setting::get('whatsapp_number', '905XXXXXXXXX');
+    $whatsappNumber = \App\Models\Setting::get('whatsapp', '905XXXXXXXXX');
     $whatsappAgentName = \App\Models\Setting::get('whatsapp_agent_name', 'Sevda');
     $whatsappMessage = \App\Models\Setting::get('whatsapp_message', 'Merhaba 👋 Ben, Müşteri Danışmanınız ' . $whatsappAgentName . '.\n\nSize nasıl yardımcı olabilirim?');
 @endphp
