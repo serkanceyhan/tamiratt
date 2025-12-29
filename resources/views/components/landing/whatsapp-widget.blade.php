@@ -1,8 +1,15 @@
 {{-- WhatsApp Chat Widget --}}
+@php
+    $whatsappNumber = \App\Models\Setting::get('whatsapp_number', '905XXXXXXXXX');
+    $whatsappAgentName = \App\Models\Setting::get('whatsapp_agent_name', 'Sevda');
+    $whatsappMessage = \App\Models\Setting::get('whatsapp_message', 'Merhaba 👋 Ben, Müşteri Danışmanınız ' . $whatsappAgentName . '.\n\nSize nasıl yardımcı olabilirim?');
+@endphp
+
 <div x-data="{ 
     open: false,
-    whatsappNumber: '905XXXXXXXXX', // Admin panelden ayarlanabilir
-    defaultMessage: 'Merhaba 👋 Ben, Müşteri Danışmanınız Sevda.\n\nSize nasıl yardımcı olabilirim?'
+    whatsappNumber: '{{ $whatsappNumber }}',
+    agentName: '{{ $whatsappAgentName }}',
+    defaultMessage: '{{ $whatsappMessage }}'
 }" class="fixed bottom-6 right-6 z-50">
     
     {{-- Chat Popup --}}
@@ -21,13 +28,13 @@
         <div class="bg-[#075E54] text-white p-4 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <img src="https://ui-avatars.com/api/?name=Sevda&background=25D366&color=fff&size=48" 
-                         alt="Sevda" 
+                    <img :src="`https://ui-avatars.com/api/?name=${encodeURIComponent(agentName)}&background=25D366&color=fff&size=48`" 
+                         :alt="agentName" 
                          class="w-12 h-12 rounded-full border-2 border-white">
                     <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-[#075E54]"></div>
                 </div>
                 <div>
-                    <p class="font-bold text-sm">Sevda</p>
+                    <p class="font-bold text-sm" x-text="agentName"></p>
                     <p class="text-xs text-green-200">Çevrimiçi</p>
                 </div>
             </div>
