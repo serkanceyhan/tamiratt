@@ -10,4 +10,5 @@
     <x-landing.instagram-feed />
     <x-landing.footer />
     <x-landing.quote-modal />
+    <x-landing.whatsapp-widget />
 </x-landing-layout>
