@@ -5,7 +5,7 @@
     $whatsappMessage = 'Merhaba, web sitenizden ulaşıyorum.';
 @endphp
 
-<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+<div class="fixed bottom-20 right-6 z-50">
     {{-- Direct WhatsApp Link Button --}}
     <a href="https://wa.me/{{ $whatsappNumber }}?text={{ urlencode($whatsappMessage) }}"
        target="_blank"
