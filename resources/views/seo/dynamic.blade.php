@@ -135,15 +135,15 @@
                         {{-- Trust Badges --}}
                         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                             <div class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                <span>🛡️</span>
+                                <span class="material-symbols-outlined text-primary text-xl">workspace_premium</span>
                                 <span>40+ Yıl Tecrübe</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                <span>🏢</span>
+                                <span class="material-symbols-outlined text-primary text-xl">business</span>
                                 <span>500+ Kurumsal Referans</span>
                             </div>
                             <div class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                <span>🪑</span>
+                                <span class="material-symbols-outlined text-primary text-xl">sentiment_satisfied</span>
                                 <span>5000+ Mutlu Müşteri</span>
                             </div>
                         </div>
