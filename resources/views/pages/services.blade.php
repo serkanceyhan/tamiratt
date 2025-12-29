@@ -25,29 +25,41 @@
         {{-- Services Grid --}}
         <section class="py-16 bg-white dark:bg-background-dark">
             <div class="max-w-[1280px] mx-auto px-6">
-                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Tamir ve Yenileme Hizmetleri</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach($services as $service)
-                        <a href="{{ route('seo.page', ['slug' => $service->slug]) }}" 
-                           class="group block p-6 bg-white dark:bg-surface-dark rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all hover:shadow-xl">
-                            <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-primary text-2xl">home_repair_service</span>
-                                </div>
-                                <div class="flex-1">
-                                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
-                                        {{ $service->name }}
-                                    </h3>
-                                    @if($service->short_description)
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
-                                            {{ $service->short_description }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
+                @php
+                    // Group services by parent
+                    $parentServices = $services->whereNull('parent_id');
+                    $childServices = $services->whereNotNull('parent_id')->groupBy('parent_id');
+                @endphp
+
+                @foreach($parentServices as $parent)
+                    <div class="mb-12">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $parent->name }}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            @if(isset($childServices[$parent->id]))
+                                @foreach($childServices[$parent->id] as $service)
+                                    <a href="{{ route('seo.page', ['slug' => $service->slug]) }}" 
+                                       class="group block p-6 bg-white dark:bg-surface-dark rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all hover:shadow-xl">
+                                        <div class="flex items-start gap-4">
+                                            <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                                <span class="material-symbols-outlined text-primary text-2xl">home_repair_service</span>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
+                                                    {{ $service->name }}
+                                                </h3>
+                                                @if($service->short_description)
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                                                        {{ $service->short_description }}
+                                                    </p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </section>
 

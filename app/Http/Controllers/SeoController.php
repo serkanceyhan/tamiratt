@@ -35,6 +35,15 @@ class SeoController extends Controller
      */
     private function resolvePageData($slug): ?array
     {
+        // Check if it's a service-only page (no location)
+        $service = Service::where('slug', $slug)
+            ->where('is_active', true)
+            ->first();
+            
+        if ($service) {
+            return $this->buildServiceOnlyPage($service);
+        }
+        
         // Parse slug: "kadikoy-ofis-koltugu-tamiri" or "istanbul-ofis-koltugu-tamiri"
         $parts = explode('-', $slug);
         
@@ -158,6 +167,30 @@ class SeoController extends Controller
         return Location::where('slug', $slug)
             ->where('type', 'city')
             ->exists();
+    }
+
+    /**
+     * Build service-only page (no location)
+     */
+    private function buildServiceOnlyPage(Service $service): array
+    {
+        $metaDescription = Str::limit(strip_tags($service->master_content ?? ''), 155);
+        
+        return [
+            'service' => $service,
+            'location' => null,
+            'locationType' => 'service',
+            'content' => $service->master_content,
+            'heroTitle' => $service->name,
+            'h1' => $service->name,
+            'breadcrumb' => [
+                ['name' => 'Ana Sayfa', 'url' => url('/')],
+                ['name' => $service->name, 'url' => null],
+            ],
+            'metaTitle' => "{$service->name}",
+            'metaDescription' => $metaDescription,
+            'canonicalUrl' => url()->current(),
+        ];
     }
 
     /**
