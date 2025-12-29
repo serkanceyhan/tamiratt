@@ -5,8 +5,8 @@
         </a>
         <nav class="hidden md:flex items-center gap-8">
             <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="{{ route('services') }}">{{ T('nav.services') }}</a>
-            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#process">{{ T('nav.how_it_works') }}</a>
-            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="#sustainability">{{ T('nav.sustainability') }}</a>
+            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="/#process">{{ T('nav.how_it_works') }}</a>
+            <a class="text-sm font-medium text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary transition-colors" href="/#sustainability">{{ T('nav.sustainability') }}</a>
         </nav>
         <div class="flex items-center gap-4">
             <button @click="quoteModalOpen = true" class="bg-primary hover:bg-blue-700 text-white text-sm font-bold py-2.5 px-6 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
