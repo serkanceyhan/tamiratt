@@ -33,7 +33,15 @@ class SendQuoteEmail implements ShouldQueue
         // Get first media attachment (if any)
         $attachment = $this->quote->getFirstMedia('damage_photos');
         
-        Mail::to('ceyhan-serkan@hotmail.com')->send(
+        // Get all super admin emails
+        $adminEmails = \App\Models\User::role('super_admin')->pluck('email')->toArray();
+        
+        // Fallback to hardcoded email if no super admins found
+        if (empty($adminEmails)) {
+            $adminEmails = ['ceyhan-serkan@hotmail.com'];
+        }
+        
+        Mail::to($adminEmails)->send(
             new QuoteRequestMail(
                 $this->quote->only(['company_name', 'name', 'email', 'service_type', 'message']),
                 $attachment?->getPath()
