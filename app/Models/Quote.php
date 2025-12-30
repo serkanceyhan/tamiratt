@@ -40,7 +40,6 @@ class Quote extends Model implements HasMedia
         $this->addMediaCollection('damage_photos')
             ->useFallbackUrl('/images/placeholder.jpg')
             ->useFallbackPath(public_path('/images/placeholder.jpg'))
-            ->maxNumberOfFiles(5)
             ->registerMediaConversions(function () {
                 $this->addMediaConversion('admin_preview')
                     ->width(800)
