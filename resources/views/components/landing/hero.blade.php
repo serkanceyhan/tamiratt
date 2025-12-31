@@ -7,9 +7,9 @@
                     <span class="text-xs font-semibold text-primary uppercase tracking-wide">Sürdürülebilir Ofis Çözümleri</span>
                 </div>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900 dark:text-white">
-                    Yenisini Alma, <br/>
+                    ömür katar, <br/>
                     <span class="text-primary relative inline-block">
-                        Ofisinizdekini Yenile
+                        bütçe artar
                         <svg class="absolute w-full h-3 -bottom-1 left-0 text-yellow-300 -z-10 opacity-60" preserveAspectRatio="none" viewBox="0 0 100 10">
                             <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="8"></path>
                         </svg>
