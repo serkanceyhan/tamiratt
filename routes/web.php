@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 // Services page
 Route::get('/hizmetler', function () {
@@ -33,7 +33,12 @@ Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'inde
 Route::get('/sitemap-services.xml', [App\Http\Controllers\SitemapController::class, 'services'])->name('sitemap.services');
 Route::get('/sitemap-static.xml', [App\Http\Controllers\SitemapController::class, 'static'])->name('sitemap.static');
 
-// SEO Pages - Single route for all formats
+// Provider Application Routes
+Route::get('/hizmet-veren/basvuru', [App\Http\Controllers\ProviderApplicationController::class, 'create'])->name('provider.apply');
+Route::post('/hizmet-veren/basvuru', [App\Http\Controllers\ProviderApplicationController::class, 'store'])->name('provider.apply.store');
+Route::get('/hizmet-veren/basvuru/basarili', [App\Http\Controllers\ProviderApplicationController::class, 'success'])->name('provider.apply.success');
+
+// SEO Pages - Single route for all formats (MUST BE LAST - catches all slugs)
 Route::get('/{slug}', [App\Http\Controllers\SeoController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')
     ->name('seo.page');
