@@ -124,23 +124,74 @@
                         </div>
 
                         {{-- Section 4: Service Areas --}}
-                        <div class="bg-white dark:bg-surface-dark rounded-2xl shadow-lg p-8">
-                            <div class="flex items-center gap-4 mb-8">
+                        <div class="bg-white dark:bg-surface-dark rounded-2xl shadow-lg p-8" x-data="serviceAreasForm()">
+                            <div class="flex items-center gap-4 mb-6">
                                 <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold">4</div>
                                 <div>
                                     <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ T('provider.section_areas') }} *</h2>
                                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ T('provider.section_areas_desc') }}</p>
                                 </div>
                             </div>
+                            
+                            {{-- Info Note --}}
+                            <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl flex items-start gap-3">
+                                <span class="material-symbols-outlined text-blue-600 mt-0.5">info</span>
+                                <div class="text-sm text-blue-800 dark:text-blue-300">
+                                    <strong>Şu an sadece İstanbul'da hizmet veriyoruz.</strong><br>
+                                    Çok yakında Ankara, İzmir ve diğer büyük şehirler eklenecektir.
+                                </div>
+                            </div>
+
                             @if($cities->count() > 0)
-                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                                <div class="space-y-6">
                                     @foreach($cities as $city)
-                                        <label class="relative flex items-center gap-3 p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-                                            <input type="checkbox" name="service_areas[]" value="{{ $city->id }}"
-                                                {{ in_array($city->id, old('service_areas', [])) ? 'checked' : '' }}
-                                                class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary">
-                                            <span class="text-sm font-medium text-gray-800 dark:text-gray-200">{{ $city->name }}</span>
-                                        </label>
+                                        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                                            {{-- City Header --}}
+                                            <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 flex items-center justify-between">
+                                                <div class="flex items-center gap-3">
+                                                    <span class="material-symbols-outlined text-primary">location_city</span>
+                                                    <span class="font-semibold text-gray-900 dark:text-white">{{ $city->name }}</span>
+                                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Aktif</span>
+                                                </div>
+                                                <button type="button" 
+                                                    @click="toggleAllDistricts('{{ $city->id }}')"
+                                                    class="text-sm text-primary hover:text-blue-700 font-medium flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-lg">check_box</span>
+                                                    <span x-text="allSelected['{{ $city->id }}'] ? 'Tümünü Kaldır' : 'Tümünü Seç'">Tümünü Seç</span>
+                                                </button>
+                                            </div>
+                                            
+                                            {{-- Districts Grid --}}
+                                            <div class="p-4">
+                                                @if($city->children && $city->children->count() > 0)
+                                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                                        @foreach($city->children as $district)
+                                                            <label class="relative flex items-center gap-2 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5 text-sm">
+                                                                <input type="checkbox" 
+                                                                    name="service_areas[]" 
+                                                                    value="{{ $district->id }}"
+                                                                    x-ref="district_{{ $city->id }}_{{ $district->id }}"
+                                                                    data-city="{{ $city->id }}"
+                                                                    @change="updateCitySelection('{{ $city->id }}')"
+                                                                    {{ $city->name === 'İstanbul' || in_array($district->id, old('service_areas', [])) ? 'checked' : '' }}
+                                                                    class="district-checkbox-{{ $city->id }} w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary">
+                                                                <span class="text-gray-700 dark:text-gray-300">{{ $district->name }}</span>
+                                                            </label>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    {{-- No districts, just city selection --}}
+                                                    <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary cursor-pointer transition-all has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                                                        <input type="checkbox" 
+                                                            name="service_areas[]" 
+                                                            value="{{ $city->id }}"
+                                                            {{ $city->name === 'İstanbul' || in_array($city->id, old('service_areas', [])) ? 'checked' : '' }}
+                                                            class="w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary">
+                                                        <span class="text-sm text-gray-700 dark:text-gray-300">Tüm {{ $city->name }}</span>
+                                                    </label>
+                                                @endif
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             @else
@@ -238,6 +289,39 @@
                 fileList.innerHTML = '<span class="text-green-600 font-medium">✓ ' + input.files.length + ' dosya seçildi:</span> ' + names;
             } else {
                 fileList.innerHTML = '';
+            }
+        }
+
+        function serviceAreasForm() {
+            return {
+                allSelected: {},
+                
+                init() {
+                    // Check initial state for each city
+                    document.querySelectorAll('[data-city]').forEach(checkbox => {
+                        const cityId = checkbox.dataset.city;
+                        if (!this.allSelected.hasOwnProperty(cityId)) {
+                            this.updateCitySelection(cityId);
+                        }
+                    });
+                },
+                
+                toggleAllDistricts(cityId) {
+                    const checkboxes = document.querySelectorAll('.district-checkbox-' + cityId);
+                    const newState = !this.allSelected[cityId];
+                    
+                    checkboxes.forEach(cb => {
+                        cb.checked = newState;
+                    });
+                    
+                    this.allSelected[cityId] = newState;
+                },
+                
+                updateCitySelection(cityId) {
+                    const checkboxes = document.querySelectorAll('.district-checkbox-' + cityId);
+                    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+                    this.allSelected[cityId] = allChecked;
+                }
             }
         }
     </script>
