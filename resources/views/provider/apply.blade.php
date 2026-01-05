@@ -36,7 +36,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('provider.apply.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                    <form action="{{ route('provider.apply.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col" style="gap: 2rem;">
                         @csrf
 
                         {{-- Section 1: Personal Info --}}
