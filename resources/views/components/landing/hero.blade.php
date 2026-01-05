@@ -7,7 +7,7 @@
                     <span class="text-xs font-semibold text-primary uppercase tracking-wide">Sürdürülebilir Ofis Çözümleri</span>
                 </div>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900 dark:text-white">
-                    ömür katar, <br/>
+                    ömür katar <br/>
                     <span class="text-primary relative inline-block">
                         bütçe artar
                         <svg class="absolute w-full h-3 -bottom-1 left-0 text-yellow-300 -z-10 opacity-60" preserveAspectRatio="none" viewBox="0 0 100 10">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="text-left">
                         <span class="text-sm font-bold text-gray-900 dark:text-white">Ücretsiz Nakliye</span>
-                        <p class="text-xs text-gray-600 dark:text-gray-400">Tüm Türkiye'de</p>
+                        <p class="text-xs text-gray-600 dark:text-gray-400">Hizmet verilen bölgelere</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 px-5 py-3 bg-white dark:bg-surface-dark rounded-full shadow-lg">
