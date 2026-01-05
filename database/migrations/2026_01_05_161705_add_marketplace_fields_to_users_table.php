@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('user_type', ['customer', 'provider', 'admin'])->default('customer')->after('email');
+            $table->string('phone')->nullable()->after('user_type');
         });
     }
 

@@ -12,18 +12,24 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('company_name');
+            $table->string('phone')->nullable();
             $table->string('tax_number')->nullable();
             $table->enum('verification_status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->json('verification_documents')->nullable(); // Media library paths
-            $table->json('service_areas')->nullable(); // Selected categories and locations
+            $table->text('verification_notes')->nullable(); // Admin notes for approval/rejection
+            $table->json('service_areas')->nullable(); // Selected location IDs
+            $table->json('service_categories')->nullable(); // Selected service category IDs
             $table->decimal('balance', 10, 2)->default(0);
             $table->boolean('is_active')->default(true);
+            $table->string('activation_token', 64)->nullable();
+            $table->timestamp('activated_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
             
             $table->index('user_id');
             $table->index('verification_status');
+            $table->index('activation_token');
         });
+
     }
 
     public function down(): void
