@@ -237,27 +237,32 @@ class ServiceSeeder extends Seeder
             unset($catData['services']);
 
             // Ana hizmeti oluştur (parent)
-            $parent = Service::create([
-                'name' => $catData['name'],
-                'slug' => $catData['slug'],
-                'icon' => $catData['icon'],
-                'short_description' => $catData['short_description'],
-                'master_content' => $catData['master_content'],
-                'show_on_homepage' => $catData['show_on_homepage'],
-                'is_active' => true,
-            ]);
+            $parent = Service::updateOrCreate(
+                ['slug' => $catData['slug']],
+                [
+                    'name' => $catData['name'],
+                    'icon' => $catData['icon'],
+                    'short_description' => $catData['short_description'],
+                    'master_content' => $catData['master_content'],
+                    'show_on_homepage' => $catData['show_on_homepage'],
+                    'is_active' => true,
+                ]
+            );
 
             // Alt hizmetleri oluştur (children)
             foreach ($children as $serviceData) {
-                Service::create([
-                    'name' => $serviceData['name'],
-                    'slug' => $serviceData['slug'],
-                    'parent_id' => $parent->id,
-                    'master_hero_title' => $serviceData['master_hero_title'],
-                    'master_content' => $serviceData['master_content'],
-                    'is_active' => true,
-                    'show_on_homepage' => false,
-                ]);
+                Service::updateOrCreate(
+                    ['slug' => $serviceData['slug']],
+                    [
+                        'name' => $serviceData['name'],
+                        'parent_id' => $parent->id,
+                        'icon' => $serviceData['icon'] ?? null,
+                        'master_hero_title' => $serviceData['master_hero_title'],
+                        'master_content' => $serviceData['master_content'],
+                        'is_active' => true,
+                        'show_on_homepage' => false,
+                    ]
+                );
             }
         }
 

@@ -80,14 +80,8 @@ class ProviderResource extends Resource
                     ->schema([
                         Forms\Components\Placeholder::make('documents')
                             ->label('Yüklenen Belgeler')
-                            ->content(function (Provider $record): string {
-                                $media = $record->getMedia('verification_documents');
-                                if ($media->isEmpty()) {
-                                    return 'Belge yüklenmemiş';
-                                }
-                                $links = $media->map(fn ($m) => "<a href='{$m->getUrl()}' target='_blank' class='text-primary hover:underline'>{$m->file_name}</a>");
-                                return $links->implode('<br>');
-                            })->html(),
+                            ->content(fn (Provider $record) => view('filament.components.document-preview', ['record' => $record]))
+                            ->columnSpanFull(),
                     ]),
 
                 Forms\Components\Section::make('Onay Durumu')

@@ -80,7 +80,7 @@ class Provider extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('verification_documents')
-            ->useDisk('local');
+            ->useDisk('public');
 
         $this->addMediaCollection('profile_photo')
             ->singleFile()

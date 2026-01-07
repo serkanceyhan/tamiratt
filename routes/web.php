@@ -38,6 +38,16 @@ Route::get('/hizmet-veren/basvuru', [App\Http\Controllers\ProviderApplicationCon
 Route::post('/hizmet-veren/basvuru', [App\Http\Controllers\ProviderApplicationController::class, 'store'])->name('provider.apply.store');
 Route::get('/hizmet-veren/basvuru/basarili', [App\Http\Controllers\ProviderApplicationController::class, 'success'])->name('provider.apply.success');
 
+// Service Request Success Page (MUST BE BEFORE serviceSlug routes)
+Route::get('/talep/basarili/{id}', function ($id) {
+    $serviceRequest = App\Models\ServiceRequest::findOrFail($id);
+    return view('service-request.success', compact('serviceRequest'));
+})->name('service-request.success');
+
+// Service Request Wizard (Dedicated Page)
+Route::get('/talep/{serviceSlug}', [App\Http\Controllers\ServiceRequestController::class, 'create'])->name('service-request.create');
+Route::get('/talep/{serviceSlug}/{locationSlug?}', [App\Http\Controllers\ServiceRequestController::class, 'create'])->name('service-request.create.location');
+
 // SEO Pages - Single route for all formats (MUST BE LAST - catches all slugs)
 Route::get('/{slug}', [App\Http\Controllers\SeoController::class, 'show'])
     ->where('slug', '[a-z0-9-]+')

@@ -10,44 +10,104 @@ class TurkeySeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     * Adds Istanbul and Ankara with their districts
+     * Loads Turkey provinces and districts from API data
      */
     public function run(): void
     {
+        $url = 'https://turkiyeapi.dev/api/v1/provinces';
+        
+        $this->command->info('Turkiye API\'den veri cekiliyor...');
+        
+        $json = @file_get_contents($url);
+        
+        if (!$json) {
+            $this->command->error('API\'ye baglanilamadi! Varsayilan veriler yukleniyor...');
+            $this->loadDefaultData();
+            return;
+        }
+        
+        $response = json_decode($json, true);
+        
+        if (!isset($response['data'])) {
+            $this->command->error('API yaniti gecersiz! Varsayilan veriler yukleniyor...');
+            $this->loadDefaultData();
+            return;
+        }
+        
+        $provinces = $response['data'];
+        
+        // Sadece Istanbul aktif olacak (baslangicta)
+        $activeCities = ['İstanbul'];
+        
+        $totalDistricts = 0;
+        
+        foreach ($provinces as $province) {
+            $provinceName = $province['name'];
+            $isActive = in_array($provinceName, $activeCities);
+            
+            // Il olustur veya guncelle
+            $city = Location::updateOrCreate(
+                ['slug' => Str::slug($provinceName), 'type' => 'city'],
+                [
+                    'name' => $provinceName,
+                    'is_active' => $isActive,
+                ]
+            );
+            
+            // Ilceleri olustur
+            if (isset($province['districts']) && is_array($province['districts'])) {
+                foreach ($province['districts'] as $district) {
+                    $districtName = $district['name'];
+                    
+                    Location::updateOrCreate(
+                        ['slug' => Str::slug($districtName) . '-' . $city->id, 'parent_id' => $city->id],
+                        [
+                            'name' => $districtName,
+                            'type' => 'district',
+                            'is_active' => $isActive,
+                        ]
+                    );
+                    
+                    $totalDistricts++;
+                }
+            }
+        }
+        
+        $this->command->info('');
+        $this->command->info('Turkiye verisi basariyla yuklendi!');
+        $this->command->info('Toplam: ' . count($provinces) . ' il, ' . $totalDistricts . ' ilce');
+        $this->command->info('Aktif: ' . implode(', ', $activeCities));
+    }
+    
+    /**
+     * Load default data if API is not available
+     */
+    private function loadDefaultData(): void
+    {
         $cities = [
             'İstanbul' => [
-                'Kadıköy', 'Beşiktaş', 'Şişli', 'Bakırköy', 'Ataşehir', 
-                'Maltepe', 'Kartal', 'Pendik', 'Ümraniye', 'Üsküdar',
-                'Beyoğlu', 'Sarıyer', 'Beykoz', 'Fatih', 'Eyüpsultan',
-                'Başakşehir', 'Esenyurt', 'Beylikdüzü', 'Küçükçekmece', 'Bağcılar'
-            ],
-            'Ankara' => [
-                'Çankaya', 'Keçiören', 'Yenimahalle', 'Mamak', 'Etimesgut',
-                'Sincan', 'Altındağ', 'Pursaklar', 'Gölbaşı', 'Polatlı'
-            ],
-            'İzmir' => [
-                'Konak', 'Karşıyaka', 'Bornova', 'Buca', 'Çiğli',
-                'Bayraklı', 'Gaziemir', 'Balçova', 'Narlıdere', 'Karabağlar'
+                'Adalar', 'Arnavutköy', 'Ataşehir', 'Avcılar', 'Bağcılar', 'Bahçelievler',
+                'Bakırköy', 'Başakşehir', 'Bayrampaşa', 'Beşiktaş', 'Beykoz', 'Beylikdüzü',
+                'Beyoğlu', 'Büyükçekmece', 'Çatalca', 'Çekmeköy', 'Esenler', 'Esenyurt',
+                'Eyüpsultan', 'Fatih', 'Gaziosmanpaşa', 'Güngören', 'Kadıköy', 'Kağıthane',
+                'Kartal', 'Küçükçekmece', 'Maltepe', 'Pendik', 'Sancaktepe', 'Sarıyer',
+                'Silivri', 'Sultanbeyli', 'Sultangazi', 'Şile', 'Şişli', 'Tuzla',
+                'Ümraniye', 'Üsküdar', 'Zeytinburnu'
             ],
         ];
 
         foreach ($cities as $cityName => $districts) {
-            // Create city
-            $city = Location::firstOrCreate(
-                ['slug' => Str::slug($cityName)],
+            $city = Location::updateOrCreate(
+                ['slug' => Str::slug($cityName), 'type' => 'city'],
                 [
                     'name' => $cityName,
-                    'type' => 'city',
                     'is_active' => true,
                 ]
             );
             
-            $this->command->info("✓ {$cityName} eklendi");
-            
-            // Create districts
             foreach ($districts as $districtName) {
-                Location::firstOrCreate(
-                    ['slug' => Str::slug($districtName), 'parent_id' => $city->id],
+                Location::updateOrCreate(
+                    ['slug' => Str::slug($districtName) . '-' . $city->id, 'parent_id' => $city->id],
                     [
                         'name' => $districtName,
                         'type' => 'district',
@@ -56,10 +116,10 @@ class TurkeySeeder extends Seeder
                 );
             }
             
-            $this->command->info("  → " . count($districts) . " ilçe eklendi");
+            $this->command->info($cityName . ': ' . count($districts) . ' ilce eklendi');
         }
         
-        $this->command->info("\n✅ İl ve ilçeler başarıyla yüklendi!");
+        $this->command->info('');
+        $this->command->info('Varsayilan veriler yuklendi!');
     }
 }
-
