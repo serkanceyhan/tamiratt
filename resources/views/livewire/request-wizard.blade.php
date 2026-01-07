@@ -162,7 +162,7 @@
                     </h4>
                     <div class="relative">
                         <textarea 
-                            wire:model.live="description"
+                            wire:model.live.debounce.300ms="description"
                             rows="4"
                             class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 resize-none @error('description') border-red-500 @else border-gray-300 dark:border-gray-600 @enderror"
                             placeholder="{{ $this->selectedService?->description_placeholder ?? 'İhtiyacınızı detaylı bir şekilde açıklayın. Ne yapılmasını istediğinizi, özel isteklerinizi belirtin...' }}"

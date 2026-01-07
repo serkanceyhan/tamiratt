@@ -175,7 +175,8 @@ class RequestWizard extends Component
     
     public function updated($propertyName)
     {
-        $this->saveState(); // Auto-save on any update
+        // NOTE: saveState() removed from here for performance.
+        // State is saved on step navigation (nextStep/prevStep) and critical actions (verifyOtp).
     }
 
     public function nextStep()
