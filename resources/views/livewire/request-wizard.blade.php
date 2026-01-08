@@ -445,6 +445,105 @@
                                     <p class="font-semibold text-green-800 dark:text-green-400">Telefon Doğrulandı</p>
                                     <p class="text-sm text-green-600 dark:text-green-500">+90 {{ $phone }}</p>
                                 </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 mt-6">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Talep Özeti</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Son kez kontrol edip onaylayın.</p>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            {{-- Left Column: Service Details --}}
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-gray-900 dark:text-white">Hizmet Detayları</h3>
+                                    <button wire:click="goToStep(1)" class="text-primary hover:text-primary-600 text-sm font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-lg">edit</span> Düzenle
+                                    </button>
+                                </div>
+                                
+                                <div class="space-y-4">
+                                    <div>
+                                        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">HİZMET TÜRÜ</div>
+                                        <div class="font-semibold text-gray-900 dark:text-white">{{ $this->selectedService->name }}</div>
+                                    </div>
+
+                                    @if($this->subServices->count() > 0)
+                                    <div>
+                                        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">SEÇİLEN HİZMETLER</div>
+                                        <div class="font-medium text-gray-900 dark:text-white">
+                                            @foreach($this->subServices as $sub)
+                                                {{ $sub->name }}{{ !$loop->last ? ', ' : '' }}
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                    <div>
+                                        <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">İHTİYAÇ DETAYI</div>
+                                        <div class="font-medium text-gray-900 dark:text-white text-sm bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+                                            {{ $description ?: 'Açıklama girilmedi.' }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Right Column: Contact & Location --}}
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-bold text-gray-900 dark:text-white">İletişim & Konum</h3>
+                                    <button wire:click="goToStep(4)" class="text-primary hover:text-primary-600 text-sm font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-lg">edit</span> Düzenle
+                                    </button>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center flex-shrink-0 text-blue-600 dark:text-blue-400">
+                                            <span class="material-symbols-outlined">person</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-0.5">Yetkili Kişi</div>
+                                            <div class="font-semibold text-gray-900 dark:text-white">{{ $contactName }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center flex-shrink-0 text-indigo-600 dark:text-indigo-400">
+                                            <span class="material-symbols-outlined">call</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-0.5">Telefon</div>
+                                            <div class="font-semibold text-gray-900 dark:text-white">+90 {{ $phone }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center flex-shrink-0 text-orange-600 dark:text-orange-400">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-0.5">Konum</div>
+                                            <div class="font-semibold text-gray-900 dark:text-white">
+                                                @php
+                                                    $city = \App\Models\Location::find($cityId);
+                                                    $district = \App\Models\Location::find($districtId);
+                                                @endphp
+                                                {{ $district ? $district->name . ', ' : '' }}{{ $city ? $city->name : '' }}
+                                            </div>
+                                            @if($address)
+                                                <div class="text-sm text-gray-500 mt-1">{{ Str::limit($address, 50) }}</div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    
+                                     <div class="flex items-start gap-4 pl-[3.5rem]">
+                                        <div class="flex items-center gap-2 text-primary font-medium">
+                                            <span class="material-symbols-outlined text-xl">verified_user</span>
+                                            Güvenli Talep
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
