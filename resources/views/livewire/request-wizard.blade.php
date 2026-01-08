@@ -448,126 +448,7 @@
                             </div>
                         </div>
 
-                        {{-- Summary Section --}}
-                        <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Talep Özeti</h3>
-                            <p class="text-gray-500 text-sm mb-6">Son kez kontrol edip onaylayın.</p>
 
-                            <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-x-8 gap-y-12 items-start">
-                                {{-- Left Column: Service Details --}}
-                                <div class="space-y-6">
-                                    {{-- Service Details Section (Clean) --}}
-                                    <div>
-                                        <div class="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
-                                            <h4 class="font-semibold text-gray-800 dark:text-white">Hizmet Detayları</h4>
-                                            <button type="button" wire:click="$set('currentStep', 1)" class="text-primary text-sm font-medium hover:underline flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-base">edit</span> Düzenle
-                                            </button>
-                                        </div>
-                                        <dl class="space-y-6">
-                                            <div>
-                                                <dt class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Hizmet Türü</dt>
-                                                <dd class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                    {{ $this->selectedService?->parent?->name ?? $this->selectedService?->name ?? '-' }}
-                                                </dd>
-                                            </div>
-                                            
-                                            <div>
-                                                <dt class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Seçilen Hizmetler</dt>
-                                                <dd class="text-lg font-medium text-gray-900 dark:text-white leading-relaxed">
-                                                    @php
-                                                        $selectedNames = \App\Models\Service::whereIn('id', $subServiceIds)->pluck('name')->join(', ');
-                                                    @endphp
-                                                    {{ $selectedNames ?: '-' }}
-                                                </dd>
-                                            </div>
-
-                                            <div>
-                                                <dt class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">İhtiyaç Detayı</dt>
-                                                <dd class="bg-gray-50 dark:bg-gray-900 rounded-xl p-5 text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed border border-gray-100 dark:border-gray-800">
-                                                    {{ $description ?: 'Açıklama girilmedi.' }}
-                                                </dd>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                    </div>
-                                </div>
-
-                                {{-- Spacer for desktop --}}
-                                <div class="hidden lg:block w-px bg-gray-200 dark:bg-gray-700 mx-auto h-full"></div>
-
-                                {{-- Right Column: Contact & Location --}}
-                                <div class="space-y-6">
-                                    {{-- Contact Section (Clean) --}}
-                                    <div>
-                                        <div class="flex justify-between items-center mb-4 border-b border-gray-100 dark:border-gray-700 pb-2">
-                                            <h4 class="font-semibold text-gray-800 dark:text-white">İletişim & Konum</h4>
-                                            <button type="button" wire:click="$set('currentStep', 4)" class="text-primary text-sm font-medium hover:underline flex items-center gap-1">
-                                                <span class="material-symbols-outlined text-base">edit</span> Düzenle
-                                            </button>
-                                        </div>
-                                        <dl class="space-y-4">
-                                            <div class="flex items-start gap-4">
-                                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-primary">
-                                                    <span class="material-symbols-outlined text-xl">person</span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Yetkili Kişi</dt>
-                                                    <dd class="text-base font-semibold text-gray-900 dark:text-white">{{ $contactName ?: '-' }}</dd>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start gap-4">
-                                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-primary">
-                                                    <span class="material-symbols-outlined text-xl">phone</span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Telefon</dt>
-                                                    <dd class="text-base font-semibold text-gray-900 dark:text-white font-mono">+90 {{ $phone }}</dd>
-                                                </div>
-                                            </div>
-
-                                            @if($email)
-                                            <div class="flex items-start gap-4">
-                                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-primary">
-                                                    <span class="material-symbols-outlined text-xl">mail</span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">E-posta</dt>
-                                                    <dd class="text-base font-medium text-gray-900 dark:text-white break-all">{{ $email }}</dd>
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                            <div class="flex items-start gap-4">
-                                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-primary">
-                                                    <span class="material-symbols-outlined text-xl">location_on</span>
-                                                </div>
-                                                <div class="flex-1">
-                                                    <dt class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5">Konum</dt>
-                                                    <dd class="text-base font-medium text-gray-900 dark:text-white leading-snug">
-                                                        @php
-                                                            $location = \App\Models\Location::find($districtId ?? $cityId);
-                                                            $city = $location?->parent ?? $location;
-                                                        @endphp
-                                                        {{ $location?->name ?? '-' }}{{ $city && $city->id !== $location?->id ? ', ' . $city->name : '' }}
-                                                    </dd>
-                                                </div>
-                                            </div>
-                                        </dl>
-                                    </div>
-                                    
-                                    {{-- Trust Badge (Moved here to align with column) --}}
-                                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4">
-                                        <div class="flex items-start gap-3">
-                                            <span class="material-symbols-outlined text-primary">verified_user</span>
-                                            <div>
-                                                <p class="font-medium text-gray-800 dark:text-white text-sm">Güvenli Talep</p>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Bilgileriniz KVKK kapsamında korunmaktadır ve sadece ilgili servis sağlayıcılar ile paylaşılır.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 {{-- Photos Section (Full Width Bottom) --}}
                                 @if(count($photos) > 0)
@@ -593,8 +474,7 @@
                                 @else
                                 <div class="md:col-span-2 mb-24"></div> {{-- Spacer if no photos --}}
                                 @endif
-                            </div>
-                        </div>
+
 
                         {{-- Terms Agreement --}}
                         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -638,7 +518,7 @@
                     type="button"
                     wire:click="submit"
                     wire:loading.attr="disabled"
-                    class="w-full sm:w-auto min-w-[200px] px-10 py-3.5 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2 order-1 sm:order-2"
+                    class="w-full sm:w-auto min-w-[200px] px-10 py-3.5 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 order-1 sm:order-2"
                 >
                     <span wire:loading.remove wire:target="submit">Talebi Gönder</span>
                     <span wire:loading.remove wire:target="submit" class="material-symbols-outlined font-bold">send</span>
