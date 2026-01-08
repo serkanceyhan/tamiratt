@@ -143,11 +143,16 @@ class Provider extends Model implements HasMedia
     }
 
     /**
-     * Check if provider has purchased (unlocked) a specific quote
+     * Check if provider has purchased (unlocked) a specific quote or service request
      */
-    public function hasPurchasedQuote(int $quoteId): bool
+    public function hasPurchasedQuote(int $id): bool
     {
-        return $this->quotePurchases()->where('quote_id', $quoteId)->exists();
+        return $this->quotePurchases()
+            ->where(function ($query) use ($id) {
+                $query->where('service_request_id', $id)
+                    ->orWhere('quote_id', $id);
+            })
+            ->exists();
     }
 
     /**

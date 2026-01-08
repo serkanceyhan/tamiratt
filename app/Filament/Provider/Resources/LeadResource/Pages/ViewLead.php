@@ -135,8 +135,8 @@ class ViewLead extends ViewRecord
                             // Also create purchase record for tracking
                             QuotePurchase::create([
                                 'provider_id' => $provider->id,
-                                'quote_id' => $this->record->id,
-                                'amount' => $offerCost,
+                                'service_request_id' => $this->record->id,
+                                'amount_paid' => $offerCost,
                             ]);
                         });
 

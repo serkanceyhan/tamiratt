@@ -12,6 +12,7 @@ class QuotePurchase extends Model
 
     protected $fillable = [
         'quote_id',
+        'service_request_id',
         'provider_id',
         'amount_paid',
         'purchased_at',
@@ -36,5 +37,13 @@ class QuotePurchase extends Model
     public function provider(): BelongsTo
     {
         return $this->belongsTo(Provider::class);
+    }
+
+    /**
+     * The service request that was purchased
+     */
+    public function serviceRequest(): BelongsTo
+    {
+        return $this->belongsTo(ServiceRequest::class);
     }
 }
