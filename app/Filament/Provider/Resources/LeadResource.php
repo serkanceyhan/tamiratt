@@ -42,12 +42,16 @@ class LeadResource extends Resource
     }
 
     /**
-     * Check if lead is unlocked by current provider
+     * Check if lead is unlocked by current provider (has existing offer)
      */
     protected static function isUnlocked($record): bool
     {
         $provider = static::getProvider();
-        return $provider && $provider->hasPurchasedQuote($record->id);
+        if (!$provider) return false;
+        
+        return \App\Models\ProviderOffer::where('provider_id', $provider->id)
+            ->where('quote_id', $record->id)
+            ->exists();
     }
 
     /**

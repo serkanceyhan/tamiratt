@@ -4,8 +4,10 @@ namespace App\Filament\Provider\Resources\LeadResource\Pages;
 
 use App\Filament\Provider\Resources\LeadResource;
 use App\Models\Provider;
+use App\Models\ProviderOffer;
 use App\Models\QuotePurchase;
 use Filament\Actions;
+use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Auth;
@@ -18,35 +20,76 @@ class ViewLead extends ViewRecord
     protected function getHeaderActions(): array
     {
         $provider = $this->getProvider();
-        $isUnlocked = $provider && $provider->hasPurchasedQuote($this->record->id);
-        $unlockCost = 10; // TODO: Make this configurable per service
+        $hasOffer = $provider && $this->hasExistingOffer($provider);
+        $offerCost = $this->record->lead_price ?? 10;
 
-        if ($isUnlocked) {
+        // Already submitted offer - show contact options
+        if ($hasOffer) {
             return [
                 Actions\Action::make('whatsapp')
-                    ->label('WhatsApp ile İletişim')
+                    ->label('WhatsApp')
                     ->icon('heroicon-o-chat-bubble-left-right')
                     ->color('success')
                     ->url(fn () => 'https://wa.me/90' . preg_replace('/[^0-9]/', '', $this->record->phone))
                     ->openUrlInNewTab(),
                 Actions\Action::make('call')
-                    ->label('Telefon Et')
+                    ->label('Müşteriyi Ara')
                     ->icon('heroicon-o-phone')
                     ->color('primary')
                     ->url(fn () => 'tel:+90' . $this->record->phone),
+                Actions\Action::make('viewOffer')
+                    ->label('Teklifimi Gör')
+                    ->icon('heroicon-o-document-text')
+                    ->color('gray')
+                    ->url(fn () => route('filament.panel.resources.my-offers.index')),
             ];
         }
 
+        // No offer yet - show offer form
         return [
-            Actions\Action::make('unlock')
-                ->label('Kilidi Aç (' . $unlockCost . ' ₺)')
-                ->icon('heroicon-o-lock-open')
-                ->color('warning')
+            Actions\Action::make('reject')
+                ->label('Reddet')
+                ->icon('heroicon-o-trash')
+                ->color('gray')
+                ->outlined()
                 ->requiresConfirmation()
-                ->modalHeading('İletişim Bilgilerini Aç')
-                ->modalDescription('Bu işlem bakiyenizden ' . $unlockCost . ' ₺ düşecektir. Devam etmek istiyor musunuz?')
-                ->modalSubmitActionLabel('Kilidi Aç')
-                ->action(function () use ($provider, $unlockCost) {
+                ->modalHeading('Bu fırsatı reddet')
+                ->modalDescription('Bu iş fırsatını reddetmek istediğinizden emin misiniz?')
+                ->action(function () {
+                    // Just redirect back to list - user chose not to offer
+                    $this->redirect(LeadResource::getUrl('index'));
+                }),
+            Actions\Action::make('submitOffer')
+                ->label('Teklif ver (' . number_format($offerCost, 2, ',', '.') . ' TL)')
+                ->icon('heroicon-o-paper-airplane')
+                ->color('success')
+                ->size('lg')
+                ->form([
+                    Forms\Components\Section::make('Teklif ver')
+                        ->schema([
+                            Forms\Components\TextInput::make('price')
+                                ->label('Fiyat (KDV dahil)')
+                                ->numeric()
+                                ->required()
+                                ->suffix('TL')
+                                ->placeholder('Örn: 8500')
+                                ->minValue(1)
+                                ->helperText('Müşteriye sunacağınız toplam fiyatı girin.'),
+                            Forms\Components\Textarea::make('message')
+                                ->label('Mesaj')
+                                ->required()
+                                ->rows(5)
+                                ->minLength(20)
+                                ->maxLength(2000)
+                                ->placeholder('Merhaba, detaylı bilgi için benimle iletişime geçebilirsiniz...')
+                                ->helperText(fn ($state) => (strlen($state ?? '') . '/2000 karakter')),
+                        ])
+                        ->columns(1),
+                ])
+                ->modalHeading('Teklif Ver')
+                ->modalDescription('Bu teklif için bakiyenizden ' . number_format($offerCost, 2, ',', '.') . ' TL düşülecektir.')
+                ->modalSubmitActionLabel('Teklif ver (' . number_format($offerCost, 2, ',', '.') . ' TL)')
+                ->action(function (array $data) use ($provider, $offerCost) {
                     if (!$provider) {
                         Notification::make()
                             ->title('Hata')
@@ -56,35 +99,50 @@ class ViewLead extends ViewRecord
                         return;
                     }
 
-                    if (!$provider->hasBalance($unlockCost)) {
+                    if (!$provider->hasBalance($offerCost)) {
                         Notification::make()
                             ->title('Yetersiz Bakiye')
                             ->body('Bakiyeniz yetersiz. Lütfen bakiye yükleyin.')
                             ->danger()
+                            ->actions([
+                                \Filament\Notifications\Actions\Action::make('addBalance')
+                                    ->label('Bakiye Yükle')
+                                    ->url(route('filament.panel.pages.wallet'))
+                                    ->button(),
+                            ])
                             ->send();
                         return;
                     }
 
                     try {
-                        DB::transaction(function () use ($provider, $unlockCost) {
+                        DB::transaction(function () use ($provider, $offerCost, $data) {
                             // Deduct balance
                             $provider->deductBalance(
-                                $unlockCost,
-                                'İş fırsatı kilidi açıldı: ' . $this->record->service->name,
+                                $offerCost,
+                                'Teklif gönderildi: ' . $this->record->service->name,
                                 $this->record->id
                             );
 
-                            // Create purchase record
+                            // Create offer record
+                            ProviderOffer::create([
+                                'quote_id' => $this->record->id,
+                                'provider_id' => $provider->id,
+                                'price' => $data['price'],
+                                'description' => $data['message'],
+                                'status' => 'pending',
+                            ]);
+
+                            // Also create purchase record for tracking
                             QuotePurchase::create([
                                 'provider_id' => $provider->id,
                                 'quote_id' => $this->record->id,
-                                'amount' => $unlockCost,
+                                'amount' => $offerCost,
                             ]);
                         });
 
                         Notification::make()
-                            ->title('Kilit Açıldı!')
-                            ->body('Müşteri bilgileri artık görüntülenebilir.')
+                            ->title('Teklif Gönderildi! 🎉')
+                            ->body('Teklifiniz müşteriye iletildi. Müşteri iletişim bilgilerine artık erişebilirsiniz.')
                             ->success()
                             ->send();
 
@@ -110,18 +168,26 @@ class ViewLead extends ViewRecord
         return Provider::where('user_id', $user->id)->first();
     }
 
+    protected function hasExistingOffer(Provider $provider): bool
+    {
+        return ProviderOffer::where('provider_id', $provider->id)
+            ->where('quote_id', $this->record->id)
+            ->exists();
+    }
+
     protected function mutateFormDataBeforeFill(array $data): array
     {
         $provider = $this->getProvider();
-        $isUnlocked = $provider && $provider->hasPurchasedQuote($this->record->id);
+        $hasOffer = $provider && $this->hasExistingOffer($provider);
 
-        if (!$isUnlocked) {
-            // Mask sensitive data
-            $data['contact_name'] = '🔒 Kilidi Aç';
-            $data['phone'] = '🔒 Kilidi Aç';
-            $data['email'] = '🔒 Kilidi Aç';
+        if (!$hasOffer) {
+            // Mask sensitive data until offer is submitted
+            $data['contact_name'] = '🔒 Teklif verin';
+            $data['phone'] = '🔒 Teklif verin';
+            $data['email'] = '🔒 Teklif verin';
         }
 
         return $data;
     }
 }
+
