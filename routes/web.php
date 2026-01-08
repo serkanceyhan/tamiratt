@@ -41,6 +41,13 @@ Route::get('/hizmet-veren/basvuru/basarili', [App\Http\Controllers\ProviderAppli
 // Service Request Success Page (MUST BE BEFORE serviceSlug routes)
 Route::get('/talep/basarili/{id}', function ($id) {
     $serviceRequest = App\Models\ServiceRequest::findOrFail($id);
+    
+    // Clear wizard session state on successful completion
+    session()->forget('wizard_state');
+    session()->forget('otp_phone');
+    session()->forget('otp_code');
+    session()->forget('otp_sent_at');
+    
     return view('service-request.success', compact('serviceRequest'));
 })->name('service-request.success');
 
