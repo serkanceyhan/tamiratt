@@ -345,10 +345,9 @@
         {{-- Step 5: Phone Verification --}}
         @if($currentStep === 5)
             <div>
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Cep telefonun?</h3>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Numaranı doğruladıktan sonra talebin yayınlanacak.</p>
-
                 @if(!$phoneVerified)
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Cep telefonun?</h3>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-6">Numaranı doğruladıktan sonra talebin yayınlanacak.</p>
                     {{-- Phone Input --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Telefon Numarası *</label>
