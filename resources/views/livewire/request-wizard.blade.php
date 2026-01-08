@@ -464,13 +464,13 @@
                                 <div class="space-y-4">
                                     <div>
                                         <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">HİZMET TÜRÜ</div>
-                                        <div class="font-semibold text-gray-900 dark:text-white">{{ $this->selectedService->name }}</div>
+                                        <div class="font-normal text-gray-900 dark:text-white">{{ $this->selectedService->name }}</div>
                                     </div>
 
                                     @if($this->subServices->count() > 0)
                                     <div>
                                         <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">SEÇİLEN HİZMETLER</div>
-                                        <div class="font-medium text-gray-900 dark:text-white">
+                                        <div class="font-normal text-gray-900 dark:text-white">
                                             @foreach($this->subServices as $sub)
                                                 {{ $sub->name }}{{ !$loop->last ? ', ' : '' }}
                                             @endforeach
@@ -480,8 +480,8 @@
 
                                     <div>
                                         <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">İHTİYAÇ DETAYI</div>
-                                        <div class="font-medium text-gray-900 dark:text-white text-sm bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
-                                            {{ $description ?: 'Açıklama girilmedi.' }}
+                                        <div class="font-normal text-gray-900 dark:text-white text-sm bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+                                            {{ $description ? Str::limit($description, 100) : 'Açıklama girilmedi.' }}
                                         </div>
                                     </div>
                                 </div>
@@ -503,7 +503,7 @@
                                         </div>
                                         <div>
                                             <div class="text-xs text-gray-500 mb-0.5">Yetkili Kişi</div>
-                                            <div class="font-semibold text-gray-900 dark:text-white">{{ $contactName }}</div>
+                                            <div class="font-normal text-gray-900 dark:text-white">{{ $contactName }}</div>
                                         </div>
                                     </div>
 
@@ -513,7 +513,7 @@
                                         </div>
                                         <div>
                                             <div class="text-xs text-gray-500 mb-0.5">Telefon</div>
-                                            <div class="font-semibold text-gray-900 dark:text-white">+90 {{ $phone }}</div>
+                                            <div class="font-normal text-gray-900 dark:text-white">+90 {{ $phone }}</div>
                                         </div>
                                     </div>
 
@@ -523,7 +523,7 @@
                                         </div>
                                         <div>
                                             <div class="text-xs text-gray-500 mb-0.5">Konum</div>
-                                            <div class="font-semibold text-gray-900 dark:text-white">
+                                            <div class="font-normal text-gray-900 dark:text-white">
                                                 @php
                                                     $city = \App\Models\Location::find($cityId);
                                                     $district = \App\Models\Location::find($districtId);
