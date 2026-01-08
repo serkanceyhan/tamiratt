@@ -606,7 +606,6 @@
                 @endif
             </div>
         @endif
-    </div>
 
     {{-- Navigation Button (Fixed at Bottom) --}}
     <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4 z-50 shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1)]">
