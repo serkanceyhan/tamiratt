@@ -543,6 +543,12 @@
                                             Güvenli Talep
                                         </div>
                                     </div>
+                                    
+                                    <div class="mt-3 pl-[3.5rem]">
+                                        <p class="text-[10px] leading-tight text-gray-400 dark:text-gray-500">
+                                            Talebi gönder tuşuna basarak <a href="/kullanici-sozlesmesi" class="hover:text-primary underline">Kullanıcı Sözleşmesi</a>'ni kabul ediyorum ve <a href="/gizlilik-politikasi" class="hover:text-primary underline">Gizlilik Politikası</a>'nı okudum, anladım.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -575,12 +581,7 @@
                                 @endif
 
 
-                        {{-- Terms Agreement --}}
-                        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <p class="text-xs text-gray-500 dark:text-gray-400 text-center">
-                                Talebi gönder tuşuna basarak <a href="/kullanici-sozlesmesi" class="text-primary hover:underline">Kullanıcı Sözleşmesi</a>'ni kabul ediyorum ve <a href="/gizlilik-politikasi" class="text-primary hover:underline">Gizlilik Politikası</a>'nı okudum, anladım.
-                            </p>
-                        </div>
+
                     </div>
                 @endif
             </div>
