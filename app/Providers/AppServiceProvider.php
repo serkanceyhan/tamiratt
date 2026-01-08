@@ -20,5 +20,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \App\Models\Location::observe(\App\Observers\LocationObserver::class);
+        \App\Models\Service::observe(\App\Observers\ServiceObserver::class);
     }
 }
