@@ -587,8 +587,8 @@ class RequestWizard extends Component
 
             $this->createdRequest = $serviceRequest;
             
-            // Clear wizard session state
-            session()->forget('request_wizard_state');
+            // Clear wizard session state (must match key used in saveState)
+            session()->forget('wizard_state');
             session()->forget('otp_phone');
             session()->forget('otp_code');
             session()->forget('otp_sent_at');
