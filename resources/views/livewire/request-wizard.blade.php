@@ -116,36 +116,39 @@
                 {{-- Grouped Sub-Service Selection Removed per user request --}}
                 {{-- Standard Sub-Service Selection (Fallback for non-grouped) --}}
                 @if($this->subServices->count() > 0)
-                <div class="mb-6">
+                <div class="mb-6" x-data="{ 
+                    selected: @entangle('subServiceIds').live,
+                    toggle(id) {
+                        const idx = this.selected.indexOf(id);
+                        if (idx > -1) { this.selected.splice(idx, 1); } 
+                        else { this.selected.push(id); }
+                    },
+                    isSelected(id) { return this.selected.includes(id); }
+                }">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Alt Hizmet Seçin <span class="text-red-500">*</span> <span class="text-xs font-normal text-gray-500 ml-1">(Birden fazla seçebilirsiniz)</span></label>
                     <div class="grid grid-cols-2 lg:grid-cols-3 gap-3">
                         @foreach($this->subServices as $subService)
-                            <label class="relative flex flex-col items-center gap-2 p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-blue-400 group active:scale-95
-                                {{ in_array($subService->id, $subServiceIds) ? 'border-primary bg-primary/5 shadow-md shadow-primary/10' : 'border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800' }}">
-                                
-                                <div class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm z-20
-                                    {{ in_array($subService->id, $subServiceIds) ? 'bg-primary border-primary' : 'border-gray-300 bg-white dark:bg-gray-700' }}">
-                                    @if(in_array($subService->id, $subServiceIds))
-                                        <span class="material-symbols-outlined text-sm text-white font-bold">check</span>
-                                    @endif
-                                </div>
-
-                                <input 
-                                    type="checkbox" 
-                                    wire:model.live="subServiceIds" 
-                                    value="{{ $subService->id }}"
-                                    class="hidden"
+                            <div 
+                                @click="toggle({{ $subService->id }})"
+                                class="relative flex flex-col items-center gap-2 p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-blue-400 group active:scale-95"
+                                :class="isSelected({{ $subService->id }}) ? 'border-primary bg-primary/5 shadow-md shadow-primary/10' : 'border-gray-100 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800'"
+                            >
+                                <div 
+                                    class="absolute top-3 right-3 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors shadow-sm z-20"
+                                    :class="isSelected({{ $subService->id }}) ? 'bg-primary border-primary' : 'border-gray-300 bg-white dark:bg-gray-700'"
                                 >
+                                    <span x-show="isSelected({{ $subService->id }})" class="material-symbols-outlined text-sm text-white font-bold">check</span>
+                                </div>
                                 
                                 <div class="w-12 h-12 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-1 group-hover:scale-110 transition-transform">
                                     @if($subService->icon)
-                                    <span class="material-symbols-outlined text-2xl {{ in_array($subService->id, $subServiceIds) ? 'text-primary' : 'text-blue-600 dark:text-blue-400' }}">{{ $subService->icon }}</span>
+                                    <span class="material-symbols-outlined text-2xl" :class="isSelected({{ $subService->id }}) ? 'text-primary' : 'text-blue-600 dark:text-blue-400'">{{ $subService->icon }}</span>
                                     @else
-                                    <span class="material-symbols-outlined text-2xl {{ in_array($subService->id, $subServiceIds) ? 'text-primary' : 'text-blue-600 dark:text-blue-400' }}">handyman</span>
+                                    <span class="material-symbols-outlined text-2xl" :class="isSelected({{ $subService->id }}) ? 'text-primary' : 'text-blue-600 dark:text-blue-400'">handyman</span>
                                     @endif
                                 </div>
-                                <span class="font-semibold text-sm text-center leading-tight {{ in_array($subService->id, $subServiceIds) ? 'text-primary' : 'text-gray-700 dark:text-gray-300' }}">{{ $subService->name }}</span>
-                            </label>
+                                <span class="font-semibold text-sm text-center leading-tight" :class="isSelected({{ $subService->id }}) ? 'text-primary' : 'text-gray-700 dark:text-gray-300'">{{ $subService->name }}</span>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -160,17 +163,22 @@
                     <h4 class="text-base font-medium text-gray-800 dark:text-white mb-3">
                         İhtiyacınızı detaylı açıklayın <span class="text-red-500">*</span>
                     </h4>
-                    <div class="relative">
+                    <div class="relative" x-data="{ charCount: {{ strlen($description) }}, minChars: 20 }">
                         <textarea 
-                            wire:model.live.debounce.300ms="description"
+                            wire:model="description"
+                            x-on:input="charCount = $event.target.value.length"
                             rows="4"
-                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 resize-none @error('description') border-red-500 @else border-gray-300 dark:border-gray-600 @enderror"
+                            class="w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 resize-none border-gray-300 dark:border-gray-600"
+                            :class="{ 'border-red-500': charCount > 0 && charCount < minChars }"
                             placeholder="{{ $this->selectedService?->description_placeholder ?? 'İhtiyacınızı detaylı bir şekilde açıklayın. Ne yapılmasını istediğinizi, özel isteklerinizi belirtin...' }}"
                         ></textarea>
-                        <div class="absolute bottom-3 right-3 text-xs {{ strlen($description) >= 20 ? 'text-green-600' : 'text-gray-400' }}">
-                            {{ strlen($description) }}/20
+                        <div class="absolute bottom-3 right-3 text-xs" :class="charCount >= minChars ? 'text-green-600' : 'text-gray-400'">
+                            <span x-text="charCount"></span>/20
                         </div>
                     </div>
+                    <template x-if="charCount > 0 && charCount < 20">
+                        <span class="text-red-500 text-sm mt-1 block">En az 20 karakter girmelisiniz.</span>
+                    </template>
                     @error('description') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                     <p class="text-xs text-gray-400 mt-2">Min. 20 karakter</p>
                 </div>
