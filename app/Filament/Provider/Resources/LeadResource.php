@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LeadResource extends Resource
 {
@@ -30,6 +31,42 @@ class LeadResource extends Resource
     protected static ?string $navigationGroup = 'İş Yönetimi';
 
     protected static ?int $navigationSort = 1;
+
+    /**
+     * Get current provider
+     */
+    protected static function getProvider(): ?Provider
+    {
+        $user = Auth::user();
+        return $user ? Provider::where('user_id', $user->id)->first() : null;
+    }
+
+    /**
+     * Check if lead is unlocked by current provider
+     */
+    protected static function isUnlocked($record): bool
+    {
+        $provider = static::getProvider();
+        return $provider && $provider->hasPurchasedQuote($record->id);
+    }
+
+    /**
+     * Mask customer name (e.g., "Ahmet Yılmaz" -> "Ahmet Y.")
+     */
+    protected static function maskName(?string $name): string
+    {
+        if (!$name) return 'Müşteri';
+        
+        $parts = explode(' ', trim($name));
+        if (count($parts) === 1) {
+            return Str::limit($parts[0], 8, '.');
+        }
+        
+        $firstName = $parts[0];
+        $lastInitial = mb_substr(end($parts), 0, 1) . '.';
+        
+        return $firstName . ' ' . $lastInitial;
+    }
 
     public static function getEloquentQuery(): Builder
     {
@@ -51,6 +88,12 @@ class LeadResource extends Resource
     {
         return $table
             ->columns([
+                // Masked customer name like Armut
+                Tables\Columns\TextColumn::make('masked_name')
+                    ->label('Müşteri')
+                    ->getStateUsing(fn ($record) => static::maskName($record->contact_name))
+                    ->icon('heroicon-m-user')
+                    ->weight('medium'),
                 Tables\Columns\TextColumn::make('service.name')
                     ->label('Hizmet')
                     ->badge()
@@ -62,16 +105,16 @@ class LeadResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Açıklama')
-                    ->limit(40)
+                    ->limit(35)
                     ->tooltip(fn ($record) => $record->description),
-                Tables\Columns\TextColumn::make('unlock_cost')
-                    ->label('Maliyet')
+                Tables\Columns\TextColumn::make('lead_price')
+                    ->label('Teklif Ücreti')
                     ->badge()
                     ->color('warning')
-                    ->formatStateUsing(fn () => '10 ₺'),
+                    ->formatStateUsing(fn ($state) => number_format($state ?? 10, 2, ',', '.') . ' ₺'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tarih')
-                    ->dateTime('d M, H:i')
+                    ->dateTime('d M')
                     ->sortable(),
             ])
             ->filters([
@@ -84,48 +127,108 @@ class LeadResource extends Resource
                     ->label('Detay'),
             ])
             ->defaultSort('created_at', 'desc')
-            ->poll('30s');
+            ->poll('30s')
+            ->emptyStateHeading('Henüz iş fırsatı yok')
+            ->emptyStateDescription('Bölgenize ve hizmetlerinize uygun talepler geldiğinde burada listelenecek.')
+            ->emptyStateIcon('heroicon-o-briefcase');
     }
 
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
             ->schema([
+                // Header with masked name and avatar
+                Infolists\Components\Section::make()
+                    ->schema([
+                        Infolists\Components\Split::make([
+                            Infolists\Components\Group::make([
+                                Infolists\Components\TextEntry::make('masked_customer_name')
+                                    ->label('')
+                                    ->getStateUsing(fn ($record) => static::maskName($record->contact_name))
+                                    ->size('lg')
+                                    ->weight('bold'),
+                                Infolists\Components\TextEntry::make('service.name')
+                                    ->label('')
+                                    ->badge()
+                                    ->color('primary'),
+                            ]),
+                            Infolists\Components\Group::make([
+                                Infolists\Components\TextEntry::make('lead_price')
+                                    ->label('Teklif Ücreti')
+                                    ->formatStateUsing(fn ($state) => number_format($state ?? 10, 2, ',', '.') . ' ₺')
+                                    ->badge()
+                                    ->color('warning'),
+                            ]),
+                        ]),
+                    ])
+                    ->columnSpanFull(),
+
                 Infolists\Components\Section::make('İş Detayları')
                     ->schema([
-                        Infolists\Components\TextEntry::make('service.name')
-                            ->label('Hizmet'),
                         Infolists\Components\TextEntry::make('location.name')
-                            ->label('Konum'),
-                        Infolists\Components\TextEntry::make('description')
-                            ->label('Açıklama')
-                            ->columnSpanFull(),
+                            ->label('Konum')
+                            ->icon('heroicon-m-map-pin'),
+                        Infolists\Components\TextEntry::make('preferred_date')
+                            ->label('Tercih Edilen Tarih')
+                            ->date('d M Y')
+                            ->icon('heroicon-m-calendar'),
                         Infolists\Components\TextEntry::make('created_at')
                             ->label('Talep Tarihi')
                             ->dateTime('d M Y, H:i'),
+                        Infolists\Components\TextEntry::make('id')
+                            ->label('Talep Numarası')
+                            ->formatStateUsing(fn ($state) => str_pad($state, 8, '0', STR_PAD_LEFT)),
                     ])
                     ->columns(2),
 
-                Infolists\Components\Section::make('Fotoğraflar')
+                Infolists\Components\Section::make('İşin Detayları')
                     ->schema([
-                        Infolists\Components\TextEntry::make('photos_placeholder')
+                        Infolists\Components\TextEntry::make('description')
                             ->label('')
-                            ->default('Fotoğraflar burada gösterilecek.')
                             ->columnSpanFull(),
-                    ])
-                    ->collapsible(),
+                    ]),
 
-                Infolists\Components\Section::make('Müşteri Bilgileri')
+                // Contact info - ONLY visible if unlocked
+                Infolists\Components\Section::make('Müşteri İletişim Bilgileri')
                     ->schema([
                         Infolists\Components\TextEntry::make('contact_name')
                             ->label('İsim')
-                            ->placeholder('🔒 Kilidi Aç'),
+                            ->icon('heroicon-m-user'),
                         Infolists\Components\TextEntry::make('phone')
                             ->label('Telefon')
-                            ->placeholder('🔒 Kilidi Aç'),
+                            ->icon('heroicon-m-phone')
+                            ->copyable()
+                            ->url(fn ($record) => 'tel:+90' . $record->phone),
+                        Infolists\Components\TextEntry::make('email')
+                            ->label('E-posta')
+                            ->icon('heroicon-m-envelope')
+                            ->copyable()
+                            ->visible(fn ($record) => !empty($record->email)),
                     ])
                     ->columns(2)
-                    ->description('Müşteri bilgilerini görmek için kilidi açın.'),
+                    ->visible(fn ($record) => static::isUnlocked($record))
+                    ->description('Müşteriyle iletişime geçebilirsiniz.'),
+
+                // Locked message - ONLY visible if NOT unlocked
+                Infolists\Components\Section::make('Müşteri Bilgileri')
+                    ->schema([
+                        Infolists\Components\TextEntry::make('locked_message')
+                            ->label('')
+                            ->default('🔒 Teklif vererek müşteri iletişim bilgilerini görebilirsiniz.')
+                            ->columnSpanFull(),
+                    ])
+                    ->visible(fn ($record) => !static::isUnlocked($record)),
+
+                Infolists\Components\Section::make('Fotoğraflar')
+                    ->schema([
+                        Infolists\Components\TextEntry::make('photos_count')
+                            ->label('')
+                            ->getStateUsing(fn ($record) => $record->getMedia('request_photos')->count() > 0 
+                                ? $record->getMedia('request_photos')->count() . ' fotoğraf mevcut' 
+                                : 'Fotoğraf eklenmemiş')
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsible(),
             ]);
     }
 
@@ -137,3 +240,4 @@ class LeadResource extends Resource
         ];
     }
 }
+
