@@ -125,7 +125,7 @@ class ViewLead extends ViewRecord
 
                             // Create offer record
                             ProviderOffer::create([
-                                'quote_id' => $this->record->id,
+                                'service_request_id' => $this->record->id,
                                 'provider_id' => $provider->id,
                                 'price' => $data['price'],
                                 'description' => $data['message'],
@@ -171,7 +171,7 @@ class ViewLead extends ViewRecord
     protected function hasExistingOffer(Provider $provider): bool
     {
         return ProviderOffer::where('provider_id', $provider->id)
-            ->where('quote_id', $this->record->id)
+            ->where('service_request_id', $this->record->id)
             ->exists();
     }
 

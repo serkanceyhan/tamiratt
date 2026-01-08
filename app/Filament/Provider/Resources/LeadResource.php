@@ -50,7 +50,7 @@ class LeadResource extends Resource
         if (!$provider) return false;
         
         return \App\Models\ProviderOffer::where('provider_id', $provider->id)
-            ->where('quote_id', $record->id)
+            ->where('service_request_id', $record->id)
             ->exists();
     }
 

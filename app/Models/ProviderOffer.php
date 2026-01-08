@@ -12,6 +12,7 @@ class ProviderOffer extends Model
 
     protected $fillable = [
         'quote_id',
+        'service_request_id',  // New field for marketplace flow
         'provider_id',
         'price',
         'timeline_days',
@@ -36,11 +37,19 @@ class ProviderOffer extends Model
     const STATUS_WITHDRAWN = 'withdrawn';
 
     /**
-     * The quote this offer is for
+     * The quote this offer is for (legacy)
      */
     public function quote(): BelongsTo
     {
         return $this->belongsTo(Quote::class);
+    }
+
+    /**
+     * The service request this offer is for (new marketplace flow)
+     */
+    public function serviceRequest(): BelongsTo
+    {
+        return $this->belongsTo(ServiceRequest::class);
     }
 
     /**
