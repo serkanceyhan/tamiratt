@@ -41,7 +41,7 @@ class LeadResource extends Resource
         }
 
         return parent::getEloquentQuery()
-            ->where('status', 'pending')
+            ->where('status', 'open')
             ->when($provider->service_areas, fn ($q) => $q->whereIn('location_id', $provider->service_areas))
             ->when($provider->service_categories, fn ($q) => $q->whereIn('service_id', $provider->service_categories))
             ->with(['service', 'location']);

@@ -70,7 +70,7 @@ class RecentLeads extends BaseWidget
 
         // Get service requests matching provider's service areas and categories
         return ServiceRequest::query()
-            ->where('status', 'pending')
+            ->where('status', 'open')
             ->when($provider->service_areas, function ($query) use ($provider) {
                 // Match by location if provider has service areas
                 $query->whereIn('location_id', $provider->service_areas);
