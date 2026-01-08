@@ -3,16 +3,31 @@
 namespace App\Observers;
 
 use App\Models\Location;
+use App\Http\Controllers\SeoController;
 use App\Jobs\GenerateCoverageJob;
 
 class LocationObserver
 {
-    public function updated(Location $location): void
+    /**
+     * Handle the Location "saved" event.
+     */
+    public function saved(Location $location): void
     {
-        // is_active değiştiğinde ve true olduğunda tetiklenir
-        if ($location->isDirty('is_active') && $location->is_active) {
-            // Job'ı dispatch et
+        if ($location->isDirty(['slug', 'is_active', 'type'])) {
+            SeoController::clearLocationCache();
+        }
+
+        // Dispatch coverage job when location becomes active
+        if ($location->wasChanged('is_active') && $location->is_active) {
             GenerateCoverageJob::dispatch($location);
         }
+    }
+
+    /**
+     * Handle the Location "deleted" event.
+     */
+    public function deleted(Location $location): void
+    {
+        SeoController::clearLocationCache();
     }
 }

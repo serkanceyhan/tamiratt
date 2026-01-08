@@ -35,29 +35,45 @@ class SeoController extends Controller
      */
     private function resolvePageData($slug): ?array
     {
-        // Check if it's a service-only page (no location)
-        $service = Service::where('slug', $slug)
-            ->where('is_active', true)
-            ->first();
-            
-        if ($service) {
-            return $this->buildServiceOnlyPage($service);
+        // 1. Check if the slug matches a service exactly (using cache to avoid DB query)
+        $serviceSlugs = $this->getCachedServiceSlugs();
+
+        if (in_array($slug, $serviceSlugs)) {
+            $service = Service::where('slug', $slug)
+                ->where('is_active', true)
+                ->first();
+
+            if ($service) {
+                return $this->buildServiceOnlyPage($service);
+            }
         }
         
         // Parse slug: "kadikoy-ofis-koltugu-tamiri" or "istanbul-ofis-koltugu-tamiri"
         $parts = explode('-', $slug);
         
-        // Check if first part is a city
+        // 2. Check if first part is a city (using cache)
         if ($this->isCitySlug($parts[0])) {
             // City-level page: "istanbul-ofis-koltugu-tamiri"
             $citySlug = $parts[0];
             $serviceSlug = implode('-', array_slice($parts, 1));
+
+            // Optimization: Early exit if service slug is invalid
+            if (!$this->isValidServiceSlug($serviceSlug)) {
+                return null;
+            }
+
             return $this->resolveCityPage([$citySlug, $serviceSlug]);
         }
         
         // District-level page: "kadikoy-ofis-koltugu-tamiri"
         $districtSlug = $parts[0];
         $serviceSlug = implode('-', array_slice($parts, 1));
+
+        // Optimization: Early exit if service slug is invalid
+        if (!$this->isValidServiceSlug($serviceSlug)) {
+            return null;
+        }
+
         return $this->resolveDistrictPage($districtSlug, $serviceSlug);
     }
 
@@ -160,13 +176,21 @@ class SeoController extends Controller
     }
 
     /**
-     * Check if slug is a city
+     * Check if slug is a city using cache
      */
     private function isCitySlug(string $slug): bool
     {
-        return Location::where('slug', $slug)
-            ->where('type', 'city')
-            ->exists();
+        $cities = $this->getCachedCitySlugs();
+        return in_array($slug, $cities);
+    }
+
+    /**
+     * Check if slug is a valid service using cache
+     */
+    private function isValidServiceSlug(string $slug): bool
+    {
+        $services = $this->getCachedServiceSlugs();
+        return in_array($slug, $services);
     }
 
     /**
@@ -198,7 +222,82 @@ class SeoController extends Controller
      */
     public static function clearServiceCache(Service $service)
     {
-        // Clear all cached pages for this service
-        Cache::flush(); // Simple approach - can be optimized to clear specific keys
+        // Clear the service slugs lookup cache
+        Cache::forget('active_service_slugs');
+
+        // Clear specific SEO page caches for this service
+        // Clear the service-only page
+        Cache::forget("seo_page_{$service->slug}");
+        
+        // Clear city+service combination pages
+        $citySlugs = Cache::get('active_city_slugs', []);
+        foreach ($citySlugs as $citySlug) {
+            Cache::forget("seo_page_{$citySlug}-{$service->slug}");
+        }
+
+        // Clear district+service pages (districts from active cities)
+        $districts = Location::where('type', 'district')
+            ->where('is_active', true)
+            ->pluck('slug');
+        foreach ($districts as $districtSlug) {
+            Cache::forget("seo_page_{$districtSlug}-{$service->slug}");
+        }
+    }
+
+    /**
+     * Clear Location cache
+     */
+    public static function clearLocationCache()
+    {
+        // Clear the city slugs lookup cache
+        Cache::forget('active_city_slugs');
+
+        // Clear all SEO pages that include location data
+        // Get all services to build cache keys
+        $serviceSlugs = Cache::get('active_service_slugs', []);
+        if (empty($serviceSlugs)) {
+            $serviceSlugs = Service::where('is_active', true)->pluck('slug')->toArray();
+        }
+
+        // Clear city+service pages
+        $cities = Location::where('type', 'city')->where('is_active', true)->pluck('slug');
+        foreach ($cities as $citySlug) {
+            foreach ($serviceSlugs as $serviceSlug) {
+                Cache::forget("seo_page_{$citySlug}-{$serviceSlug}");
+            }
+        }
+
+        // Clear district+service pages
+        $districts = Location::where('type', 'district')->where('is_active', true)->pluck('slug');
+        foreach ($districts as $districtSlug) {
+            foreach ($serviceSlugs as $serviceSlug) {
+                Cache::forget("seo_page_{$districtSlug}-{$serviceSlug}");
+            }
+        }
+    }
+
+    /**
+     * Get cached list of active city slugs
+     */
+    private function getCachedCitySlugs(): array
+    {
+        return Cache::remember('active_city_slugs', 3600, function () {
+            return Location::where('type', 'city')
+                ->where('is_active', true)
+                ->pluck('slug')
+                ->toArray();
+        });
+    }
+
+    /**
+     * Get cached list of active service slugs
+     */
+    private function getCachedServiceSlugs(): array
+    {
+        return Cache::remember('active_service_slugs', 3600, function () {
+            return Service::where('is_active', true)
+                ->pluck('slug')
+                ->toArray();
+        });
     }
 }
