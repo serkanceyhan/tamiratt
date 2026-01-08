@@ -587,6 +587,12 @@ class RequestWizard extends Component
 
             $this->createdRequest = $serviceRequest;
             
+            // Clear wizard session state
+            session()->forget('request_wizard_state');
+            session()->forget('otp_phone');
+            session()->forget('otp_code');
+            session()->forget('otp_sent_at');
+            
             // Redirect to success page
             return redirect()->route('service-request.success', ['id' => $serviceRequest->id]);
 
