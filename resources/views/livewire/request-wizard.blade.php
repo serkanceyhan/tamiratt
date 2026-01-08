@@ -633,25 +633,28 @@
                     <span wire:loading wire:target="nextStep">Yükleniyor...</span>
                 </button>
             @else
+                @if($phoneVerified)
                 <button 
                     type="button"
                     wire:click="submit"
                     wire:loading.attr="disabled"
-                    class="w-full sm:w-auto px-10 py-3.5 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none flex items-center justify-center gap-2 order-1 sm:order-2"
-                    @if(!$phoneVerified) disabled title="Önce telefon numaranızı doğrulayın" @endif
+                    class="w-full sm:w-auto min-w-[200px] px-10 py-3.5 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 transition-all shadow-lg shadow-green-500/30 flex items-center justify-center gap-2 order-1 sm:order-2"
                 >
-                    <span wire:loading.remove wire:target="submit">
-                        @if($phoneVerified)
-                            Talebi Gönder
-                        @else
-                            Telefonu Doğrula
-                        @endif
-                    </span>
-                    <span wire:loading.remove wire:target="submit" class="material-symbols-outlined font-bold">
-                        @if($phoneVerified) send @else lock @endif
-                    </span>
+                    <span wire:loading.remove wire:target="submit">Talebi Gönder</span>
+                    <span wire:loading.remove wire:target="submit" class="material-symbols-outlined font-bold">send</span>
                     <span wire:loading wire:target="submit">Gönderiliyor...</span>
                 </button>
+                @else
+                <button 
+                    type="button"
+                    disabled
+                    title="Önce telefon numaranızı doğrulayın"
+                    class="w-full sm:w-auto min-w-[200px] px-10 py-3.5 bg-gray-300 text-gray-500 rounded-xl font-bold text-lg cursor-not-allowed flex items-center justify-center gap-2 order-1 sm:order-2"
+                >
+                    <span>Telefonu Doğrula</span>
+                    <span class="material-symbols-outlined font-bold">lock</span>
+                </button>
+                @endif
             @endif
         </div>
     </div>
