@@ -104,7 +104,7 @@
     @endif
 
     {{-- Step Content --}}
-    <div class="px-2">
+    <div class="px-2 pb-28">
         
         {{-- Step 1: Sub-Service Selection & Questions --}}
         @if($currentStep === 1)
@@ -608,41 +608,53 @@
         @endif
     </div>
 
-    {{-- Navigation Button --}}
-    <div class="mt-8 pt-4 border-t border-gray-100 dark:border-gray-800 px-2 flex flex-col md:flex-row gap-4 md:justify-end sticky bottom-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm p-4 w-full -mx-4 z-40 shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1)] rounded-t-2xl">
-        {{-- Back Button (Moved to Footer, Secondary Style) --}}
-        @if($currentStep > 1)
-            <button 
-                wire:click="prevStep"
-                class="w-full md:w-auto px-6 py-4 text-gray-600 dark:text-gray-300 font-semibold hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors order-2 md:order-1 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
-            >
-                ← Geri
-            </button>
-        @endif
+    {{-- Navigation Button (Fixed at Bottom) --}}
+    <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4 z-50 shadow-[0_-4px_16px_-4px_rgba(0,0,0,0.1)]">
+        <div class="max-w-3xl mx-auto flex flex-col sm:flex-row gap-3 sm:justify-end">
+            {{-- Back Button --}}
+            @if($currentStep > 1)
+                <button 
+                    wire:click="prevStep"
+                    class="w-full sm:w-auto px-6 py-3.5 text-gray-700 dark:text-gray-300 font-semibold bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-xl transition-colors order-2 sm:order-1 flex items-center justify-center gap-2"
+                >
+                    <span class="material-symbols-outlined text-lg">arrow_back</span>
+                    Geri
+                </button>
+            @endif
 
-        @if($currentStep < $totalSteps)
-            <button 
-                wire:click="nextStep"
-                wire:loading.attr="disabled"
-                class="w-full md:w-auto px-8 py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/30 disabled:opacity-50 flex items-center justify-center gap-2 order-1 md:order-2"
-            >
-                <span wire:loading.remove wire:target="nextStep">Devam Et</span>
-                <span wire:loading.remove wire:target="nextStep" class="material-symbols-outlined font-bold">arrow_forward</span>
-                <span wire:loading wire:target="nextStep">Yükleniyor...</span>
-            </button>
-        @else
-            <button 
-                type="button"
-                wire:click="submit"
-                wire:loading.attr="disabled"
-                class="w-full md:w-auto px-10 py-4 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/30 disabled:opacity-50 flex items-center justify-center gap-2 order-1 md:order-2"
-                @if(!$phoneVerified) disabled @endif
-            >
-                <span wire:loading.remove wire:target="submit">Teklifi Gönder</span>
-                <span wire:loading.remove wire:target="submit" class="material-symbols-outlined font-bold">send</span>
-                <span wire:loading wire:target="submit">Gönderiliyor...</span>
-            </button>
-        @endif
+            {{-- Next / Submit Button --}}
+            @if($currentStep < $totalSteps)
+                <button 
+                    wire:click="nextStep"
+                    wire:loading.attr="disabled"
+                    class="w-full sm:w-auto px-8 py-3.5 bg-primary text-white rounded-xl font-bold text-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/30 disabled:opacity-50 flex items-center justify-center gap-2 order-1 sm:order-2"
+                >
+                    <span wire:loading.remove wire:target="nextStep">Devam Et</span>
+                    <span wire:loading.remove wire:target="nextStep" class="material-symbols-outlined font-bold">arrow_forward</span>
+                    <span wire:loading wire:target="nextStep">Yükleniyor...</span>
+                </button>
+            @else
+                <button 
+                    type="button"
+                    wire:click="submit"
+                    wire:loading.attr="disabled"
+                    class="w-full sm:w-auto px-10 py-3.5 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 transition-all shadow-lg hover:shadow-green-500/30 disabled:opacity-50 disabled:bg-gray-400 disabled:shadow-none flex items-center justify-center gap-2 order-1 sm:order-2"
+                    @if(!$phoneVerified) disabled title="Önce telefon numaranızı doğrulayın" @endif
+                >
+                    <span wire:loading.remove wire:target="submit">
+                        @if($phoneVerified)
+                            Talebi Gönder
+                        @else
+                            Telefonu Doğrula
+                        @endif
+                    </span>
+                    <span wire:loading.remove wire:target="submit" class="material-symbols-outlined font-bold">
+                        @if($phoneVerified) send @else lock @endif
+                    </span>
+                    <span wire:loading wire:target="submit">Gönderiliyor...</span>
+                </button>
+            @endif
+        </div>
     </div>
 
 
