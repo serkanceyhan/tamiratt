@@ -137,6 +137,7 @@ class ViewLead extends ViewRecord
                                 'provider_id' => $provider->id,
                                 'service_request_id' => $this->record->id,
                                 'amount_paid' => $offerCost,
+                                'purchased_at' => now(),
                             ]);
                         });
 
