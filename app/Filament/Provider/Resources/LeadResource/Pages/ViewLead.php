@@ -41,7 +41,7 @@ class ViewLead extends ViewRecord
                     ->label('Teklifimi Gör')
                     ->icon('heroicon-o-document-text')
                     ->color('gray')
-                    ->url(fn () => route('filament.panel.resources.my-offers.index')),
+                    ->url(fn () => route('filament.provider.resources.my-offers.index')),
             ];
         }
 
