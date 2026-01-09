@@ -43,9 +43,16 @@ class LeadResource extends Resource
 
     /**
      * Check if lead is unlocked by current provider (has existing offer)
+     * Uses pre-loaded relationship for performance
      */
     protected static function isUnlocked($record): bool
     {
+        // Check if offers relationship is loaded (it should be via eager loading)
+        if ($record->relationLoaded('offers')) {
+            return $record->offers->isNotEmpty();
+        }
+        
+        // Fallback to query if relationship not loaded (shouldn't happen)
         $provider = static::getProvider();
         if (!$provider) return false;
         
@@ -85,7 +92,15 @@ class LeadResource extends Resource
             ->where('status', 'open')
             ->when($provider->service_areas, fn ($q) => $q->whereIn('location_id', $provider->service_areas))
             ->when($provider->service_categories, fn ($q) => $q->whereIn('service_id', $provider->service_categories))
-            ->with(['service', 'location']);
+            ->with([
+                'service', 
+                'location',
+                'offers' => function ($query) use ($provider) {
+                    // Only load offers from current provider for performance
+                    $query->where('provider_id', $provider->id);
+                }
+            ])
+            ->withCount('offers'); // Add offer count for badge
     }
 
     public static function table(Table $table): Table
@@ -118,7 +133,6 @@ class LeadResource extends Resource
                 // Offer count with competition-based color coding
                 Tables\Columns\TextColumn::make('offers_count')
                     ->label('Teklifler')
-                    ->counts('offers')
                     ->badge()
                     ->color(fn ($state) => match(true) {
                         $state === 0 => 'gray',
