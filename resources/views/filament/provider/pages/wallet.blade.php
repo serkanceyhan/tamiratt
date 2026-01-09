@@ -15,6 +15,45 @@
                 <p class="text-xs text-gray-400 mt-2">Son güncelleme: {{ now()->format('H:i') }}</p>
             </div>
 
+            {{-- Statistics Cards --}}
+            <div class="grid md:grid-cols-4 gap-4">
+                @php
+                    $stats = $this->getStats();
+                @endphp
+                
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 border border-green-200 dark:border-green-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <x-heroicon-o-arrow-trending-up class="w-5 h-5 text-green-600" />
+                        <span class="text-sm text-green-700 dark:text-green-400 font-medium">Toplam Yüklenen</span>
+                    </div>
+                    <p class="text-2xl font-bold text-green-900 dark:text-green-100">{{ number_format($stats['totalCredit'], 2, ',', '.') }} ₺</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-xl p-4 border border-red-200 dark:border-red-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <x-heroicon-o-arrow-trending-down class="w-5 h-5 text-red-600" />
+                        <span class="text-sm text-red-700 dark:text-red-400 font-medium">Toplam Harcanan</span>
+                    </div>
+                    <p class="text-2xl font-bold text-red-900 dark:text-red-100">{{ number_format($stats['totalDebit'], 2, ',', '.') }} ₺</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <x-heroicon-o-wallet class="w-5 h-5 text-blue-600" />
+                        <span class="text-sm text-blue-700 dark:text-blue-400 font-medium">Güncel Bakiye</span>
+                    </div>
+                    <p class="text-2xl font-bold text-blue-900 dark:text-blue-100">{{ number_format($stats['currentBalance'], 2, ',', '.') }} ₺</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 rounded-xl p-4 border border-purple-200 dark:border-purple-800">
+                    <div class="flex items-center gap-2 mb-2">
+                        <x-heroicon-o-calendar class="w-5 h-5 text-purple-600" />
+                        <span class="text-sm text-purple-700 dark:text-purple-400 font-medium">Bu Ay</span>
+                    </div>
+                    <p class="text-2xl font-bold text-purple-900 dark:text-purple-100">{{ number_format($stats['thisMonth'], 2, ',', '.') }} ₺</p>
+                </div>
+            </div>
+
             {{-- Load Balance Section --}}
             <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Bakiye Yükle</h3>

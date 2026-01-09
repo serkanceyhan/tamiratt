@@ -92,17 +92,42 @@ class LeadResource extends Resource
     {
         return $table
             ->columns([
-                // Masked customer name like Armut
-                Tables\Columns\TextColumn::make('masked_name')
+                // Smart customer name: full if unlocked, masked if locked
+                Tables\Columns\TextColumn::make('customer_name')
                     ->label('Müşteri')
-                    ->getStateUsing(fn ($record) => static::maskName($record->contact_name))
-                    ->icon('heroicon-m-user')
-                    ->weight('medium'),
+                    ->getStateUsing(function ($record) {
+                        // Show full name if provider has submitted offer
+                        if (static::isUnlocked($record)) {
+                            return $record->contact_name;
+                        }
+                        // Otherwise show masked name
+                        return static::maskName($record->contact_name);
+                    })
+                    ->icon(fn ($record) => static::isUnlocked($record) ? 'heroicon-m-lock-open' : 'heroicon-m-lock-closed')
+                    ->iconColor(fn ($record) => static::isUnlocked($record) ? 'success' : 'gray')
+                    ->weight('medium')
+                    ->searchable(query: function ($query, $search) {
+                        // Allow searching by contact name
+                        return $query->where('contact_name', 'like', "%{$search}%");
+                    }),
                 Tables\Columns\TextColumn::make('service.name')
                     ->label('Hizmet')
                     ->badge()
                     ->color('primary')
                     ->searchable(),
+                // Offer count with competition-based color coding
+                Tables\Columns\TextColumn::make('offers_count')
+                    ->label('Teklifler')
+                    ->counts('offers')
+                    ->badge()
+                    ->color(fn ($state) => match(true) {
+                        $state === 0 => 'gray',
+                        $state <= 3 => 'success',
+                        $state <= 6 => 'warning',
+                        default => 'danger',
+                    })
+                    ->formatStateUsing(fn ($state) => $state . ' Teklif')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('location.name')
                     ->label('Konum')
                     ->icon('heroicon-m-map-pin')
@@ -111,6 +136,19 @@ class LeadResource extends Resource
                     ->label('Açıklama')
                     ->limit(35)
                     ->tooltip(fn ($record) => $record->description),
+                // Urgency tag for recent leads
+                Tables\Columns\TextColumn::make('urgency_tag')
+                    ->label('Durum')
+                    ->badge()
+                    ->color('danger')
+                    ->getStateUsing(function ($record) {
+                        // Show "Acil" badge if created within last 6 hours
+                        if ($record->created_at->diffInHours(now()) < 6) {
+                            return '🔥 Acil';
+                        }
+                        return null;
+                    })
+                    ->visible(fn ($record) => $record->created_at->diffInHours(now()) < 6),
                 Tables\Columns\TextColumn::make('lead_price')
                     ->label('Teklif Ücreti')
                     ->badge()

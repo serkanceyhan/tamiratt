@@ -59,6 +59,38 @@ class Wallet extends Page implements HasForms, HasTable
             : '0,00 ₺';
     }
 
+    /**
+     * Get wallet statistics (total credit, debit, current month)
+     */
+    public function getStats(): array
+    {
+        $provider = $this->getProvider();
+        
+        if (!$provider) {
+            return [
+                'totalCredit' => 0,
+                'totalDebit' => 0,
+                'currentBalance' => 0,
+                'thisMonth' => 0,
+            ];
+        }
+
+        return [
+            'totalCredit' => BalanceTransaction::where('provider_id', $provider->id)
+                ->where('type', 'credit')
+                ->sum('amount'),
+            'totalDebit' => BalanceTransaction::where('provider_id', $provider->id)
+                ->where('type', 'debit')
+                ->sum('amount'),
+            'currentBalance' => $provider->balance,
+            'thisMonth' => BalanceTransaction::where('provider_id', $provider->id)
+                ->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->where('type', 'credit')
+                ->sum('amount'),
+        ];
+    }
+
     public function getPackages()
     {
         return Package::active()->ordered()->get();
