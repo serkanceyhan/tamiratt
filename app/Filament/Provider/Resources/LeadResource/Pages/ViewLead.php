@@ -81,8 +81,10 @@ class ViewLead extends ViewRecord
                                 ->rows(5)
                                 ->minLength(20)
                                 ->maxLength(2000)
-                                ->placeholder('Merhaba, detaylı bilgi için benimle iletişime geçebilirsiniz...')
-                                ->helperText(fn ($state) => (strlen($state ?? '') . '/2000 karakter')),
+                                ->placeholder('Müşteriye sunacağınız toplam fiyatı girin.')
+                                ->live(onBlur: true)
+                                ->characterLimit(2000)
+                                ->hint('Müşteriye detaylı bilgi verin'),
                         ])
                         ->columns(1),
                 ])
