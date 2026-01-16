@@ -16,20 +16,20 @@ class ServiceImageSeeder extends Seeder
         $serviceImages = [
             // AHŞAP MOBİLYA TAMİRİ
             'dolap-kilit-ray-tamiri' => [
-                'hero_image' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Dolap Kilit ve Ray Tamiri.jpg',
-                'icon_svg' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Dolap Kilit ve Ray Sistemi.svg',
+                'hero_image' => 'services/hero-images/Dolap Kilit ve Ray Tamiri.jpg',
+                'icon_svg' => 'services/hero-images/Dolap Kilit ve Ray Sistemi.svg',
             ],
             'genel-ofis-mobilya-tamiri' => [
-                'hero_image' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Genel Mobilya Tamiri.jpg',
-                'icon_svg' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Genel Mobilya Tamiri.svg',
+                'hero_image' => 'services/hero-images/Genel Mobilya Tamiri.jpg',
+                'icon_svg' => 'services/hero-images/Genel Mobilya Tamiri.svg',
             ],
             'ofis-mobilya-boya-cila' => [
-                'hero_image' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Mobilya Boya ve Cila.jpg',
-                'icon_svg' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Mobilya Boya ve Cila.svg',
+                'hero_image' => 'services/hero-images/Mobilya Boya ve Cila.jpg',
+                'icon_svg' => 'services/hero-images/Mobilya Boya ve Cila.svg',
             ],
             'ofis-masasi-tamiri' => [
-                'hero_image' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Ofis Masası Tamiri.jpg',
-                'icon_svg' => 'icons-images/AHŞAP MOBİLYA TAMİRİ/Ofis Masası Tamiri.svg',
+                'hero_image' => 'services/hero-images/Ofis Masası Tamiri.jpg',
+                'icon_svg' => 'services/hero-images/Ofis Masası Tamiri.svg',
             ],
 
             // DÖŞEME VE KAPLAMA
@@ -52,66 +52,66 @@ class ServiceImageSeeder extends Seeder
 
             // MONTAJ-NAKLİYE
             'ofis-mobilya-sokum-demontaj' => [
-                'hero_image' => 'icons-images/MONTAJ-NAKLİYE/Demontaj.jpg',
-                'icon_svg' => 'icons-images/MONTAJ-NAKLİYE/Demontaj.svg',
+                'hero_image' => 'services/hero-images/Demontaj.jpg',
+                'icon_svg' => 'services/hero-images/Demontaj.svg',
             ],
             'ofis-mobilya-kurulum-montaj' => [
-                'hero_image' => 'icons-images/MONTAJ-NAKLİYE/Montaj.jpg',
-                'icon_svg' => 'icons-images/MONTAJ-NAKLİYE/Montaj.svg',
+                'hero_image' => 'services/hero-images/Montaj.jpg',
+                'icon_svg' => 'services/hero-images/Montaj.svg',
             ],
             'ofis-tasima-nakliye' => [
-                'hero_image' => 'icons-images/MONTAJ-NAKLİYE/Ofis Taşıma.jpg',
-                'icon_svg' => 'icons-images/MONTAJ-NAKLİYE/Ofis Taşıma.svg',
+                'hero_image' => 'services/hero-images/Ofis Taşıma.jpg',
+                'icon_svg' => 'services/hero-images/Ofis Taşıma.svg',
             ],
 
             // OFİS KOLTUĞU TAMİRİ
             'amortisor-degisimi' => [
-                'hero_image' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Amortisör Değişimi.jpg',
-                'icon_svg' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Amortisör Değişimi.svg',
+                'hero_image' => 'services/hero-images/Amortisör Değişimi.jpg',
+                'icon_svg' => 'services/hero-images/Amortisör Değişimi.svg',
             ],
             'koltuk-ayak-kolcak-degisimi' => [
-                'hero_image' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Koltuk Ayak-Kolçak Değişimi.jpg',
-                'icon_svg' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Koltuk Ayak-Kolçak Değişimi.svg',
+                'hero_image' => 'services/hero-images/Koltuk Ayak-Kolçak Değişimi.jpg',
+                'icon_svg' => 'services/hero-images/Koltuk Ayak-Kolçak Değişimi.svg',
             ],
             'mekanizma-tekerlek-tamiri' => [
-                'hero_image' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Mekanizma-Tekerlek Değişimi.jpg',
-                'icon_svg' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Mekanizma & Tekerlek Tamiri.svg',
+                'hero_image' => 'services/hero-images/Mekanizma-Tekerlek Değişimi.jpg',
+                'icon_svg' => 'services/hero-images/Mekanizma & Tekerlek Tamiri.svg',
             ],
             'ofis-sandalyesi-tamiri' => [
-                'hero_image' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Ofis Sandalyesi Tamiri.jpg',
-                'icon_svg' => 'icons-images/OFİS KOLTUĞU TAMİRİ/Ofis Sandalyesi Tamiri.svg',
+                'hero_image' => 'services/hero-images/Ofis Sandalyesi Tamiri.jpg',
+                'icon_svg' => 'services/hero-images/Ofis Sandalyesi Tamiri.svg',
             ],
 
             // OFİS MOBİLYA ÜRETİMİ
             'karsilama-bankosu-imalati' => [
-                'hero_image' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Karşılama Bankosu.jpg',
-                'icon_svg' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Karşılama Bankosu.svg',
+                'hero_image' => 'services/hero-images/Karşılama Bankosu.jpg',
+                'icon_svg' => 'services/hero-images/Karşılama Bankosu.svg',
             ],
             'makam-takimi-imalati' => [
-                'hero_image' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Makam Takımı İmalatı.jpg',
-                'icon_svg' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Makam Takımı İmalatı.svg',
+                'hero_image' => 'services/hero-images/Makam Takımı İmalatı.jpg',
+                'icon_svg' => 'services/hero-images/Makam Takımı İmalatı.svg',
             ],
             'ofis-dolabi-kitaplik-uretimi' => [
-                'hero_image' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Ofis Dolabi Üretimi.jpg',
-                'icon_svg' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Ofis Dolabı Üretimi.svg',
+                'hero_image' => 'services/hero-images/Ofis Dolabi Üretimi.jpg',
+                'icon_svg' => 'services/hero-images/Ofis Dolabı Üretimi.svg',
             ],
             'toplanti-masasi-imalati' => [
-                'hero_image' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Toplantı Masası İmalatı.jpg',
-                'icon_svg' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Toplantı Masası İmalatı.svg',
+                'hero_image' => 'services/hero-images/Toplantı Masası İmalatı.jpg',
+                'icon_svg' => 'services/hero-images/Toplantı Masası İmalatı.svg',
             ],
             'workstation-calisma-masasi' => [
-                'hero_image' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Workstation.jpg',
-                'icon_svg' => 'icons-images/OFİS MOBİLYA ÜRETİMİ/Workstation.svg',
+                'hero_image' => 'services/hero-images/Workstation.jpg',
+                'icon_svg' => 'services/hero-images/Workstation.svg',
             ],
 
             // YEDEK PARÇA
             'ofis-koltugu-yedek-parca' => [
-                'hero_image' => 'icons-images/YEDEK PARÇA/Koltuk Yedek Parçaları.jpg',
-                'icon_svg' => 'icons-images/YEDEK PARÇA/Koltuk Yedek Parçaları.svg',
+                'hero_image' => 'services/hero-images/Koltuk Yedek Parçaları.jpg',
+                'icon_svg' => 'services/hero-images/Koltuk Yedek Parçaları.svg',
             ],
             'ofis-masa-aksesuarlari' => [
-                'hero_image' => 'icons-images/YEDEK PARÇA/Masa Aksesuarları.jpg',
-                'icon_svg' => 'icons-images/YEDEK PARÇA/Masa Aksesuarları.svg',
+                'hero_image' => 'services/hero-images/Masa Aksesuarları.jpg',
+                'icon_svg' => 'services/hero-images/Masa Aksesuarları.svg',
             ],
         ];
 
