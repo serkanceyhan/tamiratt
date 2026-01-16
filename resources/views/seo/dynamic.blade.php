@@ -222,7 +222,7 @@
                                 Yenilenmiş (After)
                             </div>
                         </div>
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200'); width: 50%; border-right: 2px solid white;">
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('/storage/2/before.jpg'); width: 50%; border-right: 2px solid white;">
                             <div class="absolute top-4 left-4 bg-white/80 dark:bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                                 Öncesi (Before)
                             </div>
