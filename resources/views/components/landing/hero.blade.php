@@ -63,7 +63,7 @@
                 <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 transform rotate-1 transition-transform duration-500 hover:rotate-0">
                     <div class="absolute inset-0 flex">
                         <div class="w-1/2 h-full bg-gray-200 relative overflow-hidden border-r-2 border-white z-10">
-                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir öncesi" style='background-image: url("/storage/2/anasayfa-ust.jpg");'></div>
+                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir öncesi" style='background-image: url("/storage/2/anasayfa-ust-before.jpg");'></div>
                             <div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">ÖNCESİ</div>
                             <div class="absolute inset-0 bg-black/10"></div>
                         </div>
