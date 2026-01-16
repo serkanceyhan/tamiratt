@@ -130,7 +130,7 @@
 
                         {{-- CTA Button --}}
                         <a 
-                            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
+                            href="mailto:info@tamiratt.com?subject={{ urlencode($service->name . ' Talebi') }}&body={{ urlencode('Merhaba, ' . $service->name . ' hizmeti hakkında bilgi almak istiyorum.') }}" 
                             class="inline-flex items-center justify-center gap-2 px-8 py-4 text-white text-lg font-bold rounded-lg shadow-xl transition-all transform hover:-translate-y-1" 
                             style="background-color: #2463eb;"
                         >
@@ -420,7 +420,7 @@
         x-transition
     >
         <a 
-            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
+            href="mailto:info@tamiratt.com?subject={{ urlencode($service->name . ' Talebi') }}&body={{ urlencode('Merhaba, ' . $service->name . ' hizmeti hakkında bilgi almak istiyorum.') }}" 
             class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg"
         >
             <span class="material-symbols-outlined">edit_note</span>
