@@ -129,10 +129,14 @@
                         </p>
 
                         {{-- CTA Button --}}
-                        <button @click="quoteModalOpen = true" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-white text-lg font-bold rounded-lg shadow-xl transition-all transform hover:-translate-y-1" style="background-color: #2463eb;">
-                            <span>Hemen Teklif Al</span>
+                        <a 
+                            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
+                            class="inline-flex items-center justify-center gap-2 px-8 py-4 text-white text-lg font-bold rounded-lg shadow-xl transition-all transform hover:-translate-y-1" 
+                            style="background-color: #2463eb;"
+                        >
+                            <span>Tamirat Talebi Oluştur</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
-                        </button>
+                        </a>
 
                         {{-- Trust Badges --}}
                         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
@@ -406,5 +410,21 @@
     </main>
     
     <x-landing.footer />
-    <x-landing.quote-modal />
+
+    {{-- Sticky CTA for Mobile --}}
+    <div 
+        x-data="{ showSticky: false }"
+        x-init="window.addEventListener('scroll', () => { showSticky = window.scrollY > 400 })"
+        class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 md:hidden"
+        x-show="showSticky"
+        x-transition
+    >
+        <a 
+            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
+            class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg"
+        >
+            <span class="material-symbols-outlined">edit_note</span>
+            <span>Tamirat Talebi Oluştur</span>
+        </a>
+    </div>
 </x-landing-layout>

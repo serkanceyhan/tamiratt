@@ -8,10 +8,13 @@ use Illuminate\Support\Str;
 
 class Service extends Model
 {
-    protected $fillable = ['name', 'slug', 'short_description', 'master_content', 'master_hero_title', 'is_active', 'parent_id', 'show_on_homepage', 'icon'];
+    protected $fillable = ['name', 'slug', 'short_description', 'description_placeholder', 'master_content', 'master_hero_title', 'is_active', 'parent_id', 'show_on_homepage', 'icon', 'estimated_price_min', 'estimated_price_max', 'lead_price'];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'estimated_price_min' => 'decimal:2',
+        'estimated_price_max' => 'decimal:2',
+        'lead_price' => 'decimal:2',
     ];
 
     protected static function boot()
@@ -54,5 +57,32 @@ class Service extends Model
     public function scopeParents($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    /**
+     * Get questions for this service
+     */
+    public function questions()
+    {
+        return $this->hasMany(ServiceQuestion::class)->ordered();
+    }
+
+    /**
+     * Get service requests for this service
+     */
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+    /**
+     * Get estimated price range display
+     */
+    public function getEstimatedPriceRange(): ?string
+    {
+        if ($this->estimated_price_min && $this->estimated_price_max) {
+            return number_format($this->estimated_price_min, 0) . ' - ' . number_format($this->estimated_price_max, 0) . ' ₺';
+        }
+        return null;
     }
 }

@@ -50,6 +50,13 @@ class ServiceResource extends Resource
                             ->maxLength(200)
                             ->helperText('Ana sayfada ve servis detayında gösterilecek kısa açıklama (max 200 karakter)')
                             ->columnSpanFull(),
+                        Forms\Components\Textarea::make('description_placeholder')
+                            ->label('Talep Açıklaması Placeholder')
+                            ->rows(2)
+                            ->maxLength(500)
+                            ->helperText('Talep formunda açıklama alanı için örnek metin. Örn: "3+1 dairemde genel temizlik yaptırmak istiyorum..."')
+                            ->placeholder('Örn: 3+1 dairemde genel temizlik yaptırmak istiyorum. Banyolar ve mutfak özellikle temizlenmeli.')
+                            ->columnSpanFull(),
                         Forms\Components\Select::make('parent_id')
                             ->label('Ana Hizmet')
                             ->relationship('parent', 'name')
