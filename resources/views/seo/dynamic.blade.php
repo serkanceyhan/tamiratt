@@ -411,17 +411,18 @@
     
     <x-landing.footer />
 
-    {{-- Sticky CTA for Mobile --}}
+    {{-- Sticky CTA - Always visible on mobile, appears on scroll on desktop --}}
     <div 
         x-data="{ showSticky: false }"
         x-init="window.addEventListener('scroll', () => { showSticky = window.scrollY > 400 })"
-        class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 md:hidden"
-        x-show="showSticky"
-        x-transition
+        class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 shadow-2xl md:shadow-xl"
+        :class="{ 'block': true, 'md:block': showSticky, 'md:hidden': !showSticky }"
+        x-show="showSticky || window.innerWidth < 768"
+        x-cloak
     >
         <button 
             @click="quoteModalOpen = true"
-            class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg"
+            class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition-all"
         >
             <span class="material-symbols-outlined">edit_note</span>
             <span>Tamirat Talebi Oluştur</span>
