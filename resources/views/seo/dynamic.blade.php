@@ -217,12 +217,12 @@
                 <div class="mt-16 text-center">
                     <h3 class="text-2xl md:text-3xl font-bold text-blue-900 dark:text-white mb-8">Yenilenen Mobilyalarınız İlk Günkü Gibi Olur</h3>
                     <div class="max-w-4xl mx-auto before-after-container rounded-2xl shadow-2xl overflow-hidden aspect-[4/3] relative group">
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/storage/2/after.jpg');">
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/storage/2/after-new.jpg');">
                             <div class="absolute top-4 right-4 bg-white/80 dark:bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400">
                                 Yenilenmiş (After)
                             </div>
                         </div>
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('/storage/2/before.jpg'); width: 50%; border-right: 2px solid white;">
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('/storage/2/before-new.jpg'); width: 50%; border-right: 2px solid white;">
                             <div class="absolute top-4 left-4 bg-white/80 dark:bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                                 Öncesi (Before)
                             </div>
