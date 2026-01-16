@@ -129,14 +129,14 @@
                         </p>
 
                         {{-- CTA Button --}}
-                        <a 
-                            href="mailto:info@tamiratt.com?subject={{ urlencode($service->name . ' Talebi') }}&body={{ urlencode('Merhaba, ' . $service->name . ' hizmeti hakkında bilgi almak istiyorum.') }}" 
+                        <button 
+                            @click="quoteModalOpen = true"
                             class="inline-flex items-center justify-center gap-2 px-8 py-4 text-white text-lg font-bold rounded-lg shadow-xl transition-all transform hover:-translate-y-1" 
                             style="background-color: #2463eb;"
                         >
                             <span>Tamirat Talebi Oluştur</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
-                        </a>
+                        </button>
 
                         {{-- Trust Badges --}}
                         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
@@ -419,12 +419,12 @@
         x-show="showSticky"
         x-transition
     >
-        <a 
-            href="mailto:info@tamiratt.com?subject={{ urlencode($service->name . ' Talebi') }}&body={{ urlencode('Merhaba, ' . $service->name . ' hizmeti hakkında bilgi almak istiyorum.') }}" 
+        <button 
+            @click="quoteModalOpen = true"
             class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg"
         >
             <span class="material-symbols-outlined">edit_note</span>
             <span>Tamirat Talebi Oluştur</span>
-        </a>
+        </button>
     </div>
 </x-landing-layout>

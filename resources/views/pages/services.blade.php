@@ -37,7 +37,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @if(isset($childServices[$parent->id]))
                                 @foreach($childServices[$parent->id] as $service)
-                                    <a href="{{ route('service.show', [$parent->slug, $service->slug, null]) }}"
+                                    <a href="{{ route('seo.page', ['slug' => $service->slug]) }}"
                                        class="group block p-6 bg-white dark:bg-surface-dark rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all hover:shadow-xl">
                                         <div class="flex flex-col items-center text-center gap-4">
                                             <div class="w-24 h-24 flex items-center justify-center">
