@@ -41,7 +41,11 @@
                                        class="group block p-6 bg-white dark:bg-surface-dark rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all hover:shadow-xl">
                                         <div class="flex items-start gap-4">
                                             <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                                                <span class="material-symbols-outlined text-primary text-2xl">{{ $service->icon ?? 'home_repair_service' }}</span>
+                                                @if($service->icon_svg)
+                                                    <img src="/{{ $service->icon_svg }}" alt="{{ $service->name }}" class="w-6 h-6">
+                                                @else
+                                                    <span class="material-symbols-outlined text-primary text-2xl">{{ $service->icon ?? 'home_repair_service' }}</span>
+                                                @endif
                                             </div>
                                             <div class="flex-1">
                                                 <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
