@@ -63,12 +63,12 @@
                 <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 transform rotate-1 transition-transform duration-500 hover:rotate-0">
                     <div class="absolute inset-0 flex">
                         <div class="w-1/2 h-full bg-gray-200 relative overflow-hidden border-r-2 border-white z-10">
-                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="old worn out leather office chair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2-6Bbg1kqgUAHjffwLZpoBMPLaKDDB6N5eFW9fDbr5O8cNwDDqqb882NFOh9nuHS_i4ujWOnpdpQepYYrzWjZiNTnTxHUh6SToaahBbYLVtGie8GkRWMQnhC1smW8Sm5_13MH-Oba3ayZfd7mBY8dMxa5sQRG0MTNnNm3UWaOWc8_fg3ei8hTUIJu-Dsn3Y3F9RBumddk9xNR7ZPgZYNAmKIroThfn5IEOy0F2LX985u3HPGOlvRTpy2JFS4H2EX4C3DRwK1xWeY");'></div>
+                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir öncesi" style='background-image: url("/storage/2/anasayfa-ust.jpg");'></div>
                             <div class="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">ÖNCESİ</div>
                             <div class="absolute inset-0 bg-black/10"></div>
                         </div>
                         <div class="w-1/2 h-full bg-gray-100 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="brand new refurbished modern office chair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuByunvVmFxWQovm0iV5dVg_YCWV8Tza_u8yLPEmNBVWkQEgVD9tFQziSh2ZomFpFRHmge2d6-upNGob7Kja-eGoHUkndxEWJIEsf5I7mZSadyM5eEfdIT4F0j2XXJ8nvvRFCvfctt1raHmPUypreqScZV1x2WF8q4WOkb06wHMZsUFvJRS1z9RHUxVoUT4JAC7DQANQSPcLHcEkTLbPJdZSe0f0nR6Zv0vbgJP-4O5HgDr4uysFsEJ4ZCmAmvWTaEuoYK3D9hwwyRA");'></div>
+                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir sonrası" style='background-image: url("/storage/2/anasayfa-alt.jpg");'></div>
                             <div class="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">SONRASI</div>
                         </div>
                     </div>
