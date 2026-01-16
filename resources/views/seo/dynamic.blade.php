@@ -157,8 +157,8 @@
 
                     {{-- Right Column - Image --}}
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800" 
-                             alt="Modern Office Interior" 
+                        <img src="{{ $service->hero_image ? asset($service->hero_image) : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800' }}" 
+                             alt="{{ $service->name }}" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>
