@@ -68,7 +68,7 @@
                             <div class="absolute inset-0 bg-black/10"></div>
                         </div>
                         <div class="w-1/2 h-full bg-gray-100 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir sonrası" style='background-image: url("/storage/2/anasayfa-alt.jpg");'></div>
+                            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" data-alt="Ofis mobilyası tamir sonrası" style='background-image: url("/storage/2/anasayfa-ust-after.jpg");'></div>
                             <div class="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">SONRASI</div>
                         </div>
                     </div>
