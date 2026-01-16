@@ -129,14 +129,14 @@
                         </p>
 
                         {{-- CTA Button --}}
-                        <a 
-                            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
+                        <button 
+                            @click="quoteModalOpen = true"
                             class="inline-flex items-center justify-center gap-2 px-8 py-4 text-white text-lg font-bold rounded-lg shadow-xl transition-all transform hover:-translate-y-1" 
                             style="background-color: #2463eb;"
                         >
                             <span>Tamirat Talebi Oluştur</span>
                             <span class="material-symbols-outlined">arrow_forward</span>
-                        </a>
+                        </button>
 
                         {{-- Trust Badges --}}
                         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
@@ -157,8 +157,8 @@
 
                     {{-- Right Column - Image --}}
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800" 
-                             alt="Modern Office Interior" 
+                        <img src="{{ $service->hero_image ? '/' . $service->hero_image : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800' }}" 
+                             alt="{{ $service->name }}" 
                              class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -217,12 +217,12 @@
                 <div class="mt-16 text-center">
                     <h3 class="text-2xl md:text-3xl font-bold text-blue-900 dark:text-white mb-8">Yenilenen Mobilyalarınız İlk Günkü Gibi Olur</h3>
                     <div class="max-w-4xl mx-auto before-after-container rounded-2xl shadow-2xl overflow-hidden aspect-[4/3] relative group">
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1200');">
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" style="background-image: url('/storage/2/after-new.jpg');">
                             <div class="absolute top-4 right-4 bg-white/80 dark:bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-green-700 dark:text-green-400">
                                 Yenilenmiş (After)
                             </div>
                         </div>
-                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200'); width: 50%; border-right: 2px solid white;">
+                        <div class="absolute inset-0 w-full h-full bg-cover bg-center" id="before-image" style="background-image: url('/storage/2/before-new.jpg'); width: 50%; border-right: 2px solid white;">
                             <div class="absolute top-4 left-4 bg-white/80 dark:bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-gray-300">
                                 Öncesi (Before)
                             </div>
@@ -411,20 +411,22 @@
     
     <x-landing.footer />
 
-    {{-- Sticky CTA for Mobile --}}
+<<<<<<< HEAD
+    {{-- Sticky CTA - Always visible on mobile, appears on scroll on desktop --}}
     <div 
         x-data="{ showSticky: false }"
         x-init="window.addEventListener('scroll', () => { showSticky = window.scrollY > 400 })"
-        class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 md:hidden"
-        x-show="showSticky"
-        x-transition
+        class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-700 shadow-2xl md:shadow-xl"
+        :class="{ 'block': true, 'md:block': showSticky, 'md:hidden': !showSticky }"
+        x-show="showSticky || window.innerWidth < 768"
+        x-cloak
     >
-        <a 
-            href="{{ route('service-request.create', ['serviceSlug' => $service->slug]) }}{{ $location ? '/' . $location->slug : '' }}" 
-            class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg"
+        <button 
+            @click="quoteModalOpen = true"
+            class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-blue-700 transition-all"
         >
             <span class="material-symbols-outlined">edit_note</span>
             <span>Tamirat Talebi Oluştur</span>
-        </a>
+        </button>
     </div>
 </x-landing-layout>

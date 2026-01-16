@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="w-full md:w-1/2">
-                <div class="rounded-2xl overflow-hidden shadow-2xl h-[400px] w-full bg-cover bg-center" data-alt="clean modern minimal office workspace interior" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAltNJYuLD26Wdj_goSymHrj7r5WzVEL47BH30uXJa__h5ZwOApqjk07LZA5WBZeiSvFbTDrADyedXMh82s5Xy5z39vxS0RbeURIT1ABOr9AvgzJZzviX-FitcEQyvWDgw3JDtCS5zqQxKdhw88PvOXKed7xY1vLW8CNx4gF4H9Zho9DNxGtNoQqm08ecHaNDynFQ3qLTeYORI3_Av_3NFc9sWOFncuPJlFgoqhPJ32SSp5nbeUhH7QGbqvMXwbwQZ8Qruoi8fhH4");'></div>
+                <div class="rounded-2xl overflow-hidden shadow-2xl h-[400px] w-full bg-cover bg-center" data-alt="Modern ofis çalışma alanı" style='background-image: url("/storage/2/anasayfa-alt.jpg");'></div>
             </div>
         </div>
     </div>

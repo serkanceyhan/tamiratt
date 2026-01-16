@@ -26,6 +26,7 @@
         {{ $slot }}
         <x-landing.scroll-to-top />
         <x-landing.whatsapp-widget />
+        <x-landing.quote-modal />
     </div>
 </body>
 </html>
