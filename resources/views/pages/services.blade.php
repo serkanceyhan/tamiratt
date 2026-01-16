@@ -37,17 +37,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @if(isset($childServices[$parent->id]))
                                 @foreach($childServices[$parent->id] as $service)
-                                    <a href="{{ route('seo.page', ['slug' => $service->slug]) }}" 
+                                    <a href="{{ route('service.show', [$parent->slug, $service->slug, null]) }}"
                                        class="group block p-6 bg-white dark:bg-surface-dark rounded-xl border-2 border-gray-100 dark:border-gray-700 hover:border-primary dark:hover:border-primary transition-all hover:shadow-xl">
-                                        <div class="flex items-start gap-4">
-                                            <div class="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                                        <div class="flex flex-col items-center text-center gap-4">
+                                            <div class="w-24 h-24 flex items-center justify-center">
                                                 @if($service->icon_svg)
-                                                    <img src="/{{ $service->icon_svg }}" alt="{{ $service->name }}" class="w-6 h-6">
+                                                    <img src="/{{ $service->icon_svg }}" alt="{{ $service->name }}" class="w-full h-full object-contain">
                                                 @else
-                                                    <span class="material-symbols-outlined text-primary text-2xl">{{ $service->icon ?? 'home_repair_service' }}</span>
+                                                    <span class="material-symbols-outlined text-primary" style="font-size: 6rem;">{{ $service->icon ?? 'home_repair_service' }}</span>
                                                 @endif
                                             </div>
-                                            <div class="flex-1">
+                                            <div>
                                                 <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">
                                                     {{ $service->name }}
                                                 </h3>
