@@ -72,18 +72,18 @@
                             <div class="absolute top-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">SONRASI</div>
                         </div>
                     </div>
-                    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-5 py-3 rounded-xl shadow-lg flex items-center gap-3 z-20 w-max">
-                        <div class="flex -space-x-2">
-                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 1" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUnT9fH-Cjje61JUS6kMBXsnjL5jOWDtY_B05Zi4ENdpWmIrvHWWqbVNu9fbTzoAujTK64iyPdPRJ8CZRUUAZfhCFQgqjCpF-3dgvDm8fyRtaXr6MPm85Qs2-cD-tMveeeyb8KBTSjO40jh66ERlma460hPRkqO12rxgPYO5A6sXJdxjLmIwltv-cpPxRXI6043c7vDObLeEcFnvHf_Un0bQr2UP0_0LRpp4DY_jWu8A3NxOZ2zeacDrzm55FUqE4HyRLjZ00wG0c"); background-size: cover;'></div>
-                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 2" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKss9oRqzI6y-2_FAwcTgdxuC1SbiERgcHpY3TfjNRbb1C9J1k29kGSx3B1GKbcHpMaw0QZwKf8Edgmemx1bv8rQ5N3C178lCiQAQb7Xmmp193ziXxMQU0mP7TPAr4GsAkZBS3AgAiErZ8Gd3j0PVwfhjDQuY5b8WDU-JfwohNroh_vPdrIDbDc2pPrxEibvlw5ezp8TeRLKROhJMoXI6YnfU4fZgwYJpKeL5ByNqn2kkFtTYdhmzIlgZqwcfV53kae2fJEyjTmMA"); background-size: cover;'></div>
-                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 3" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDfP7_-w32o8mywEb5_AgYz2NAF62EG4xMZTZmHQNQHyrVTSSsWVq0r1GWmgCmExhBktWjQzUEj-2KrvVwCovHIz6USvJX0fG1SJ9HWzTDP3AmoUs9ZGz-ZaFk_sQmGZpb5ae8noqYmAe9wfYD56I4LIp3_Ril0pOKZxnw_GoGS5AyVF6Bm58eOh9L0ZRvovBsJy2ggcY1f2w0taKm_26mKPxCimcxTWly5yMBxGcf6buW40a6T-iMpeJF4bmf_qLYAlLZgg6Q_Tdg"); background-size: cover;'></div>
+                </div>
+                <div class="absolute -bottom-6 lg:bottom-6 left-1/2 transform -translate-x-1/2 bg-white/90 dark:bg-gray-900/90 backdrop-blur px-5 py-3 rounded-xl shadow-lg flex items-center gap-3 z-20 w-max">
+                    <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 1" style="background-image: url('{{ asset('assets/images/badges/avatar-1.jpg') }}'); background-size: cover;"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 2" style="background-image: url('{{ asset('assets/images/badges/avatar-2.jpg') }}'); background-size: cover;"></div>
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-300" data-alt="user avatar 3" style="background-image: url('{{ asset('assets/images/badges/avatar-3.jpg') }}'); background-size: cover;"></div>
                         </div>
                         <div class="text-xs">
                             <p class="font-bold text-gray-900 dark:text-white">500+ Mutlu Şirket</p>
                             <p class="text-gray-500">Ofisini yeniledi</p>
                         </div>
                     </div>
-                </div>
                 <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-400/20 rounded-full blur-3xl -z-10"></div>
                 <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-green-400/20 rounded-full blur-3xl -z-10"></div>
             </div>

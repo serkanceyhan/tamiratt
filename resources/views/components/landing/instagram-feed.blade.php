@@ -67,7 +67,7 @@
             </a>
             
             <!-- Feed Item 5 -->
-            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 hidden md:block">
                 <img 
                     src="{{ asset('assets/images/instagram/ig-5.jpg') }}" 
                     alt="Instagram Post" 
