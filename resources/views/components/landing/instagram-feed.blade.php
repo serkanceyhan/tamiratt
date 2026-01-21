@@ -17,11 +17,11 @@
             </a>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
             <!-- Feed Item 1 -->
-            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                 <img 
-                    src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000&auto=format&fit=crop" 
+                    src="{{ asset('assets/images/instagram/ig-1.jpg') }}" 
                     alt="Instagram Post" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -31,9 +31,9 @@
             </a>
             
             <!-- Feed Item 2 -->
-            <a href="#" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                 <img 
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop" 
+                    src="{{ asset('assets/images/instagram/ig-2.jpg') }}" 
                     alt="Instagram Post" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -43,9 +43,9 @@
             </a>
             
             <!-- Feed Item 3 -->
-            <a href="#" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                 <img 
-                    src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=1000&auto=format&fit=crop" 
+                    src="{{ asset('assets/images/instagram/ig-3.jpg') }}" 
                     alt="Instagram Post" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -55,9 +55,9 @@
             </a>
             
             <!-- Feed Item 4 -->
-            <a href="#" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                 <img 
-                    src="https://images.unsplash.com/photo-1542332213-31f87348057f?q=80&w=1000&auto=format&fit=crop" 
+                    src="{{ asset('assets/images/instagram/ig-4.jpg') }}" 
                     alt="Instagram Post" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -67,25 +67,13 @@
             </a>
             
             <!-- Feed Item 5 -->
-            <a href="#" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
+            <a href="https://www.instagram.com/ta.miratt/" target="_blank" class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
                 <img 
-                    src="https://images.unsplash.com/photo-1517164850305-99a3e65bb47e?q=80&w=1000&auto=format&fit=crop" 
+                    src="{{ asset('assets/images/instagram/ig-5.jpg') }}" 
                     alt="Instagram Post" 
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">favorite</span>
-                </div>
-            </a>
-            
-            <!-- Feed Item 6 -->
-            <a href="#" class="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800">
-                <img 
-                    src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Instagram Post" 
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                     <span class="material-symbols-outlined text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">favorite</span>
                 </div>
             </a>
