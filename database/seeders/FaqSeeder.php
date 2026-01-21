@@ -9,51 +9,53 @@ class FaqSeeder extends Seeder
 {
     public function run(): void
     {
+        // Önce temizle
+        Faq::query()->delete();
+
         $faqs = [
-            // Service Category
             [
-                'category' => 'service',
-                'question' => 'Hizmet veren gelmedi, ne yapmalıyım?',
-                'answer' => 'Randevu saatinden 15 dakika sonra hizmet veren hala gelmediyse, "Mesaj Gönder" butonunu kullanarak iletişime geçebilir veya destek ekibimize bildirebilirsiniz.',
+                'category' => 'Mobilya Yenileme',
+                'question' => 'Mobilya yenileme işlemi için ürünleri şubeye mi teslim etmemiz gerekiyor?',
+                'answer' => 'Yenileme işlemleriniz için mobilyalarınızı kapıdan teslim alarak yine sizlere teslim ediyoruz.',
+                'order' => 1,
             ],
             [
-                'category' => 'service',
-                'question' => 'Yapılan işlemden memnun kalmadım.',
-                'answer' => 'Memnuniyetiniz bizim için önemli. İşlem tamamlandıktan sonra 24 saat içinde "Sorun Bildir" butonunu kullanarak durumu bize iletebilir, ücretsiz telafi talep edebilirsiniz.',
+                'category' => 'Mobilya Yenileme',
+                'question' => 'Kendi ürünleriniz dışında mobilyaları yeniliyor musunuz?',
+                'answer' => 'Tabii ki, marka farketmeksizin mobilyalarınızı yeniliyoruz.',
+                'order' => 2,
             ],
             [
-                'category' => 'service',
-                'question' => 'Randevumu nasıl iptal edebilirim?',
-                'answer' => 'Hizmet başlangıç saatinden en geç 2 saat öncesine kadar panelinizden iptal işlemi gerçekleştirebilirsiniz.',
-            ],
-
-            // Payment Category
-            [
-                'category' => 'payment',
-                'question' => 'Ödeme seçenekleri nelerdir?',
-                'answer' => 'Kredi kartı, banka kartı ve havale/EFT yöntemleri ile güvenli ödeme yapabilirsiniz.',
+                'category' => 'Malzeme ve Tamir',
+                'question' => 'Yenileme işlemleri sırasında eksik veya eskimiş malzemeler için nasıl bir çözüm sunuyorsunuz?',
+                'answer' => 'Mobilya ihtiyaçları ve eksik malzeme tedariğini sizler için sağlayarak yenileme ve değişim işlemlerimizi gerçekleştiriyoruz.',
+                'order' => 3,
             ],
             [
-                'category' => 'payment',
-                'question' => 'Faturamı nasıl alabilirim?',
-                'answer' => 'İşlem tamamlandıktan sonra faturanız otomatik olarak e-posta adresinize gönderilir. Ayrıca "Siparişlerim" sayfasından da indirebilirsiniz.',
-            ],
-
-            // Technical Category
-            [
-                'category' => 'technical',
-                'question' => 'Şifremi unuttum, nasıl sıfırlarım?',
-                'answer' => 'Giriş ekranında bulunan "Şifremi Unuttum" bağlantısına tıklayarak e-posta adresinize sıfırlama bağlantısı gönderebilirsiniz.',
+                'category' => 'Malzeme ve Tamir',
+                'question' => 'Parça değişimi dışında aşınmış malzeme onarımı yapıyor musunuz?',
+                'answer' => 'Aşınmış ve eskimiş dokular için de onarım işlemleri yapmaktayız.',
+                'order' => 4,
             ],
             [
-                'category' => 'technical',
-                'question' => 'Bildirim alamıyorum.',
-                'answer' => 'Profil ayarlarınızdan bildirim izinlerini kontrol edin. Ayrıca telefonunuzun uygulama ayarlarından bildirimlere izin verdiğinizden emin olun.',
+                'category' => 'Hizmet Kapsamı',
+                'question' => 'Yenileme dışında değişim işlemleri gerçekleştiriyor musunuz?',
+                'answer' => 'İstek ve beklentileriniz dahilinde mobilyalarınızı yenileme ve değişim işlemlerini gerçekleştiriyoruz.',
+                'order' => 5,
+            ],
+            [
+                'category' => 'Malzeme ve Tamir',
+                'question' => 'Tamir işlemleri süresince ne tip malzemeler kullanıyorsunuz?',
+                'answer' => 'Karbon kullanımından uzak kalarak çevre dostu malzemeler kullanıyoruz. Tamirat olarak küresel ısınmanın önüne geçmek için çevreci çözümlerle süreçlerimizi tamamlıyoruz.',
+                'order' => 6,
             ],
         ];
 
         foreach ($faqs as $faq) {
-            Faq::create([...$faq, 'is_active' => true]);
+            Faq::create([
+                ...$faq, 
+                'is_active' => true
+            ]);
         }
     }
 }
