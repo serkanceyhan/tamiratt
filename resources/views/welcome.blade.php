@@ -7,6 +7,7 @@
         <x-landing.process />
         <x-landing.cta />
     </main>
+    <x-landing.faq />
     <x-landing.instagram-feed />
     <x-landing.footer />
     <x-landing.quote-modal />
